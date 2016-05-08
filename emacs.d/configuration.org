@@ -222,7 +222,7 @@ documentation.
    (setq org-log-done 'time)
  #+END_SRC
 
- **** Capturing tasks
+*** Capturing tasks
 
  Define a few common tasks as capture templates. Specifically, I frequently:
 
@@ -292,17 +292,17 @@ documentation.
    (global-set-key (kbd "M-n") 'org-capture-todo)
  #+END_SRC
 
- **** Capturing Tasks
+*** Capturing Tasks
 
  Templates for task capturing
 
- **** Keybindings
+*** Keybindings
 
- ** Exporting
+** Exporting
 
   More to go here.
 
- *** Exporting to HTML
+*** Exporting to HTML
 
  Don't include the footer with my details.
 
@@ -311,7 +311,7 @@ documentation.
  #+END_SRC
 
 
- * =dired=
+* =dired=
 
  Nothing here yet.
 
