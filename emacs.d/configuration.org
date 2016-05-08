@@ -1,0 +1,376 @@
+#+TITLE Emacs Configuration
+
+* Use sensible-defaults.el
+
+Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
+
+
+#+BEGIN_SRC emacs-lisp
+  (load-file "~/Personal/code/sensible-defaults.el/sensible-defaults.el")
+  (sensible-defaults/use-all-settings)
+  (sensible-defaults/use-all-keybindings)
+#+END_SRC
+
+
+* Package Management
+
+Use cask and pallet for managing packages.
+
+#+BEGIN_SRC emacs-lisp
+(require 'cask "~/.cask/cask.el")
+(cask-initialize)
+(require 'pallet)
+#+END_SRC
+
+* Set personal information
+
+#+BEGIN_SRC emacs-lisp
+(setq user-full-name "William Ellwood"
+user-mail-address "fragmad@gmail.com")
+#+END_SRC
+
+* Add =resources= to =load-path=
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/resources/")
+#+END_SRC
+
+* =evil-mode=
+
+I want to start using evil more.
+
+#+BEGIN_SRC emacs-lisp
+(evil-mode 1)
+#+END_SRC
+
+Enable =surround= everywhere.
+
+#+BEGIN_SRC emacs-lisp
+  (global-evil-surround-mode 1)
+#+END_SRC
+
+* Utility Functions
+
+* UI Preferences
+
+Kill all the window decoration.
+
+#+BEGIN_SRC emacs-lisp
+(set-frame-parameter nil 'fullscreen 'fullboth)
+#+END_SRC
+
+** Mac OS X Specifics
+
+First we need to know if we are using a Mac
+
+#+BEGIN_SRC emacs-lisp
+  (defun fragmad/system-is-mac()
+    (interactive)
+    (string-equal system-type "darwin"))
+#+END_SRC
+
+I like to be able to use the command key as a meta key when using my Macbook Air.
+
+#+BEGIN_SRC emacs-lisp
+  (if (fragmad/system-is-mac)
+       (setq ns-command-modifier 'meta)
+       (setq ns-right-alternative-modifier (quote none)))
+#+END_SRC
+** Disable window decoration s
+
+#+BEGIN_SRC emacs-lisp
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(when window-system
+(scroll-bar-mode -1))
+#+END_SRC
+
+** Highlight the current line
+
+This makes it easier to find the cursor
+
+#+BEGIN_SRC emacs-lisp
+(when window-system
+(global-hl-line-mode))
+#+END_SRC
+
+** Highlight uncommitted changes
+
+Nothing here yet.
+
+** Set the theme
+
+I mostly use Zenburn but will occassionally use cyberpunk if I'm being dramatic.
+
+#+BEGIN_SRC emacs-lisp
+(load-theme 'zenburn t)
+#+END_SRC
+
+* Programming Languages
+
+I like everything indented by four spaces.
+
+#+BEGIN_SRC emacs-lisp
+(setq-default tab-width 4)
+#+END_SRC
+
+** Lisps
+(this is all taken for HRS's configuration for later work)
+
+All the lisps have some shared features, so we want to do the same things for
+all of them. That includes using =paredit-mode= to balance parentheses (and
+more!), =rainbow-delimiters= to color matching parentheses, and highlighting the
+whole expression when point is on a paren.
+
+#+BEGIN_SRC emacs-lisp
+  (setq lispy-mode-hooks
+        '(clojure-mode-hook
+          emacs-lisp-mode-hook
+          lisp-mode-hook
+          scheme-mode-hook))
+
+  (dolist (hook lispy-mode-hooks)
+    (add-hook hook (lambda ()
+                     (setq show-paren-style 'expression)
+                     (paredit-mode)
+                     (rainbow-delimiters-mode))))
+#+END_SRC
+
+If I'm writing in Emacs lisp I'd like to use =eldoc-mode= to display
+documentation.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+#+END_SRC
+
+** Python
+
+#+BEGIN_SRC emacs-lisp
+;  (setq python-indent 4)
+  (add-hook 'python-mode-hook (lambda () (elpy-enable)))
+ #+END_SRC
+
+ * Terminal
+
+ =multi-term= works well for managing shell sessions.
+
+ It's a good idea to stick with whatever login shell I've got going on.
+
+ #+BEGIN_SRC emacs-lisp
+ (setq multi-term-program-switches "--login")
+ #+END_SRC
+
+ Evil is really pointless in the terminal. Disable it.
+
+ #+BEGIN_SRC emacs-lisp
+   (evil-set-initial-state 'term-mode 'emacs)
+ #+END_SRC
+
+* Org-mode
+
+ If editing source blocks put syntax highlighting on.
+
+ #+BEGIN_SRC emacs-lisp
+   (setq org-src-fontify-natively t)
+ #+END_SRC
+
+ Make tab behave if it was in the languages major mode.
+
+ #+BEGIN_SRC emacs-lisp
+ (setq org-src-tab-acts-natively t)
+ #+END_SRC
+
+** Task Management
+ #+BEGIN_SRC emacs-lisp
+
+ (setq org-directory "~/org")
+
+ (defun org-file-path (filename)
+   "Return the absolute address of an org file, given its relative name."
+   (concat (file-name-as-directory org-directory) filename))
+
+ (setq org-index-file (org-file-path "index.org"))
+ (setq org-archive-location
+       (concat (org-file-path "archive.org") "::* From %s"))
+ #+END_SRC
+
+ I store all my todos in =~/org/index.org=, so I'd like to derive my agenda from
+ there.
+
+ #+BEGIN_SRC emacs-lisp
+   (setq org-agenda-files (list org-index-file))
+ #+END_SRC
+
+ Hitting =C-c C-x C-s= will mark a todo as done and move it to an appropriate
+ place in the archive.
+
+ #+BEGIN_SRC emacs-lisp
+   (defun mark-done-and-archive ()
+     "Mark the state of an org-mode item as DONE and archive it."
+     (interactive)
+     (org-todo 'done)
+     (org-archive-subtree))
+
+   (define-key global-map "\C-c\C-x\C-s" 'mark-done-and-archive)
+ #+END_SRC
+
+ Record the time that a todo was archived.
+
+ #+BEGIN_SRC emacs-lisp
+   (setq org-log-done 'time)
+ #+END_SRC
+
+ **** Capturing tasks
+
+ Define a few common tasks as capture templates. Specifically, I frequently:
+
+ - Record ideas for future blog posts in =~/org/blog-ideas.org=,
+ - Keep a running grocery list in =~/org/groceries.org=, and
+ - Maintain a todo list in =~/org/index.org=.
+
+ #+BEGIN_SRC emacs-lisp
+   (setq org-capture-templates
+         '(("b" "Blog idea"
+            entry
+            (file (org-file-path "blog-ideas.org"))
+            "* TODO %?\n")
+
+           ("g" "Groceries"
+            checkitem
+            (file (org-file-path "groceries.org")))
+
+           ("r" "Reading"
+            checkitem
+            (file (org-file-path "to-read.org")))
+
+           ("t" "Todo"
+            entry
+            (file org-index-file)
+            "* TODO %?\n")))
+ #+END_SRC
+
+ When I'm starting an org capture template I'd like to begin in insert mode. I'm
+ opening it up in order to start typing something, so this skips a step.
+
+ #+BEGIN_SRC emacs-lisp
+   (add-hook 'org-capture-mode-hook 'evil-insert-state)
+ #+END_SRC
+
+* Keybindings
+
+ Bind a few handy keys.
+
+ #+BEGIN_SRC emacs-lisp
+   (define-key global-map "\C-cl" 'org-store-link)
+   (define-key global-map "\C-ca" 'org-agenda)
+   (define-key global-map "\C-cc" 'org-capture)
+ #+END_SRC
+
+ Hit =C-c i= to quickly open up my todo list.
+
+ #+BEGIN_SRC emacs-lisp
+   (defun open-index-file ()
+     "Open the master org TODO list."
+     (interactive)
+ ;    (hrs/copy-tasks-from-inbox)
+     (find-file org-index-file)
+     (flycheck-mode -1)
+     (end-of-buffer))
+
+   (global-set-key (kbd "C-c i") 'open-index-file)
+ #+END_SRC
+
+ Hit =M-n= to quickly open up a capture template for a new todo.
+
+ #+BEGIN_SRC emacs-lisp
+   (defun org-capture-todo ()
+     (interactive)
+     (org-capture :keys "t"))
+
+   (global-set-key (kbd "M-n") 'org-capture-todo)
+ #+END_SRC
+
+ **** Capturing Tasks
+
+ Templates for task capturing
+
+ **** Keybindings
+
+ ** Exporting
+
+  More to go here.
+
+ *** Exporting to HTML
+
+ Don't include the footer with my details.
+
+ #+BEGIN_SRC emacs-lisp
+   (setq org-html-postamble nil)
+ #+END_SRC
+
+
+ * =dired=
+
+ Nothing here yet.
+
+* Editing
+
+** Always use spaces
+
+ Tabs are awful.
+
+ #+BEGIN_SRC emacs-lisp
+ (setq-default indent-tabs-mode nil)
+ #+END_SRC
+
+** Spellchecking
+
+ I basically can't spell.
+
+ Use flycheck in text buffers.
+
+ #+BEGIN_SRC emacs-lisp
+   (add-hook 'markdown-mode-hook #'flycheck-mode)
+   (add-hook 'text-mode-hook #'flycheck-mode)
+   (add-hook 'org-mode-hook #'flycheck-mode)
+ #+END_SRC
+
+** Configure ido
+
+ #+BEGIN_SRC emacs-lisp
+
+   (setq ido-enable-flex-matching t)
+   (setq ido-everywhere t)
+   (ido-mode 1)
+   (ido-ubiquitous)
+   (flx-ido-mode 1) ; better/faster matching
+   (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
+ #+END_SRC
+
+ ** Use Smex to handle M-x with ido
+
+ #+BEGIN_SRC emacs-lisp
+ (smex-initialize)
+
+ (global-set-key (kbd "M-x") 'smex)
+ (global-set-key (kbd "M-X") 'smex-major-mode-commands)
+ #+END_SRC
+
+
+* Some custom keybindings
+
+ #+BEGIN_SRC emacs-lisp
+   (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+   (global-set-key (kbd "C-+") 'text-scale-increase)
+   (global-set-key (kbd "C--") 'text-scale-decrease)
+   (global-set-key [f11] 'toggle-frame-fullscreen)
+   (global-set-key [f12] 'indent-buffer)
+   (global-set-key (kbd "C-c C-s") 'ispell-word)
+   (global-set-key (kbd "C-x C-k") 'kill-region)
+   (global-set-key (kbd "C-c s") 'multi-term)
+   (global-set-key (kbd "M-<up>")  'fragmad/move-line-up)
+   (global-set-key (kbd "M-<down>")  'fragmad/move-line-down)
+   (global-set-key (kbd "M-o") 'other-window)
+   (global-set-key (kbd "C-x g") 'magit-status)
+   (global-set-key (kbd "M-/") 'hippie-expand)
+ #+END_SRC
