@@ -1,5 +1,7 @@
 #+TITLE Emacs Configuration
 
+My emacs configuration. I expect this to grow over time and it is very much a work in progress. Many of the ideas from this are taken shameless from  Harry Schwartz's configuration which can be found [[https://github.com/hrs/dotfiles][at his github dotfiles.]]
+
 * Use sensible-defaults.el
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
