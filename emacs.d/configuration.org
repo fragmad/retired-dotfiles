@@ -110,7 +110,7 @@ I mostly use Zenburn but will occassionally use cyberpunk if I'm being dramatic.
 
 * Programming Languages
 
-I like everything indented by four spaces.
+I like everything indented by four spaces by default.
 
 #+BEGIN_SRC emacs-lisp
 (setq-default tab-width 4)
@@ -148,11 +148,11 @@ documentation.
 ** Python
 
 #+BEGIN_SRC emacs-lisp
-;  (setq python-indent 4)
+  (setq python-indent 4)
   (add-hook 'python-mode-hook (lambda () (elpy-enable)))
  #+END_SRC
 
- * Terminal
+* Terminal
 
  =multi-term= works well for managing shell sessions.
 
@@ -389,6 +389,7 @@ Certain modes require visual-line-mode.
    (global-set-key (kbd "M-<up>")  'fragmad/move-line-up)
    (global-set-key (kbd "M-<down>")  'fragmad/move-line-down)
    (global-set-key (kbd "M-o") 'other-window)
+   (global-set-key (kbd "M-#") 'sort-lines)
    (global-set-key (kbd "C-x g") 'magit-status)
    (global-set-key (kbd "M-/") 'hippie-expand)
  #+END_SRC
