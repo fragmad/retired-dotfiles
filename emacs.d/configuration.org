@@ -1,4 +1,4 @@
-#+TITLE Emacs Configuration
+#+TITLE: Emacs Configuration
 
 My emacs configuration. I expect this to grow over time and it is very much a work in progress. Many of the ideas from this are taken shameless from  Harry Schwartz's configuration which can be found [[https://github.com/hrs/dotfiles][at his github dotfiles.]]
 
@@ -39,10 +39,10 @@ user-mail-address "fragmad@gmail.com")
 
 * =evil-mode=
 
-I want to start using evil more.
+I want to start using evil more. Make it easy for me to change my mind.
 
 #+BEGIN_SRC emacs-lisp
-(evil-mode 1)
+(evil-mode 0)
 #+END_SRC
 
 Enable =surround= everywhere.
@@ -258,7 +258,7 @@ documentation.
    (add-hook 'org-capture-mode-hook 'evil-insert-state)
  #+END_SRC
 
-* Keybindings
+** Keybindings
 
  Bind a few handy keys.
 
@@ -315,6 +315,7 @@ documentation.
 
  Nothing here yet.
 
+
 * Editing
 
 ** Always use spaces
@@ -357,6 +358,21 @@ documentation.
  (global-set-key (kbd "M-x") 'smex)
  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
  #+END_SRC
+
+** Word wrapping
+
+I want that has visual line mode enabled to stop at 80 characters. This is important to me as it helps me process text much more easily.
+
+#+BEGIN_SRC emacs-lisp
+(global-visual-fill-column-mode)
+#+END_SRC
+
+Certain modes require visual-line-mode.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'markdown-mode-hook (lambda () (visual-line-mode t)))
+  (add-hook 'org-mode-hook (lambda () (visual-line-mode t)))
+#+END_SRC
 
 
 * Some custom keybindings

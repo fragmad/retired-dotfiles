@@ -84,4 +84,4 @@
 (depends-on "zenburn-theme")
 (depends-on "cyberpunk-theme")
 (depends-on "sensible-defaults")
-(depends-on "inform7-mode")
+(depends-on "visual-column-mode")
