@@ -196,6 +196,7 @@ documentation.
        (concat (org-file-path "archive.org") "::* From %s"))
  #+END_SRC
 
+
  I store all my todos in =~/org/index.org=, so I'd like to derive my agenda from
  there.
 
@@ -222,7 +223,7 @@ documentation.
    (setq org-log-done 'time)
  #+END_SRC
 
-*** Capturing tasks
+** Capturing tasks
 
  Define a few common tasks as capture templates. Specifically, I frequently:
 
@@ -232,20 +233,7 @@ documentation.
 
  #+BEGIN_SRC emacs-lisp
    (setq org-capture-templates
-         '(("b" "Blog idea"
-            entry
-            (file (org-file-path "blog-ideas.org"))
-            "* TODO %?\n")
-
-           ("g" "Groceries"
-            checkitem
-            (file (org-file-path "groceries.org")))
-
-           ("r" "Reading"
-            checkitem
-            (file (org-file-path "to-read.org")))
-
-           ("t" "Todo"
+         '(("t" "Todo"
             entry
             (file org-index-file)
             "* TODO %?\n")))
@@ -274,7 +262,6 @@ documentation.
    (defun open-index-file ()
      "Open the master org TODO list."
      (interactive)
- ;    (hrs/copy-tasks-from-inbox)
      (find-file org-index-file)
      (flycheck-mode -1)
      (end-of-buffer))
@@ -292,17 +279,25 @@ documentation.
    (global-set-key (kbd "M-n") 'org-capture-todo)
  #+END_SRC
 
-*** Capturing Tasks
-
- Templates for task capturing
-
-*** Keybindings
 
 ** Exporting
 
-  More to go here.
+#+BEGIN_SRC emacs-lisp
 
-*** Exporting to HTML
+(require 'ox-md)
+(require 'ox-beamer)
+
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (ruby . t)
+     (python . t)))
+#+END_SRC
+
+ *** Exporting to HTML
 
  Don't include the footer with my details.
 
@@ -311,7 +306,7 @@ documentation.
  #+END_SRC
 
 
-* =dired=
+ * =dired=
 
  Nothing here yet.
 
@@ -389,7 +384,6 @@ Certain modes require visual-line-mode.
    (global-set-key (kbd "M-<up>")  'fragmad/move-line-up)
    (global-set-key (kbd "M-<down>")  'fragmad/move-line-down)
    (global-set-key (kbd "M-o") 'other-window)
-   (global-set-key (kbd "M-#") 'sort-lines)
    (global-set-key (kbd "C-x g") 'magit-status)
    (global-set-key (kbd "M-/") 'hippie-expand)
  #+END_SRC
