@@ -42,13 +42,19 @@ user-mail-address "fragmad@gmail.com")
 I want to start using evil more. Make it easy for me to change my mind.
 
 #+BEGIN_SRC emacs-lisp
-(evil-mode 0)
+(evil-mode 1)
 #+END_SRC
 
 Enable =surround= everywhere.
 
 #+BEGIN_SRC emacs-lisp
   (global-evil-surround-mode 1)
+#+END_SRC
+
+Disable Evil Mode in Some Modes
+
+#+BEGIN_SRC emacs-lisp
+
 #+END_SRC
 
 * Utility Functions
@@ -78,7 +84,7 @@ I like to be able to use the command key as a meta key when using my Macbook Air
        (setq ns-command-modifier 'meta)
        (setq ns-right-alternative-modifier (quote none)))
 #+END_SRC
-** Disable window decoration s
+** Disable window decorations
 
 #+BEGIN_SRC emacs-lisp
 (tool-bar-mode 0)
@@ -103,9 +109,21 @@ Nothing here yet.
 ** Set the theme
 
 I mostly use Zenburn but will occassionally use cyberpunk if I'm being dramatic.
+;(load-theme 'zenburn t)
 
 #+BEGIN_SRC emacs-lisp
-(load-theme 'zenburn t)
+(load-theme 'cyberpunk t)
+#+END_SRC
+
+** Enable Smart Mode Line
+
+I'm trying out Smart Mode Line.
+
+I'd like to use the Powerline theme. Other themes are available. :)
+
+#+BEGIN_SRC emacs-lisp
+(setq sml/theme 'powerline)
+(sml/setup)
 #+END_SRC
 
 * Programming Languages
@@ -151,6 +169,26 @@ documentation.
   (setq python-indent 4)
   (add-hook 'python-mode-hook (lambda () (elpy-enable)))
  #+END_SRC
+
+** Magit
+
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'with-editor-mode-hook 'evil-insert-state)
+#+END_SRC
+
+** Projectile
+
+#+BEGIN_SRC emacs-lisp
+(defun hrs/search-project-for-symbol-at-point ()
+  "Use `projectile-ag' to search the current project for `symbol-at-point'."
+  (interactive)
+  (projectile-ag (projectile-symbol-at-point)))
+
+(global-set-key (kbd "C-c v") 'projectile-ag)
+(global-set-key (kbd "C-c C-v") 'hrs/search-project-for-symbol-at-point)
+#+END_SRC
+
 
 * Terminal
 
@@ -380,10 +418,13 @@ Certain modes require visual-line-mode.
    (global-set-key [f12] 'indent-buffer)
    (global-set-key (kbd "C-c C-s") 'ispell-word)
    (global-set-key (kbd "C-x C-k") 'kill-region)
+   (global-set-key (kbd "C-c C-k") 'kill-region)
    (global-set-key (kbd "C-c s") 'multi-term)
    (global-set-key (kbd "M-<up>")  'fragmad/move-line-up)
    (global-set-key (kbd "M-<down>")  'fragmad/move-line-down)
    (global-set-key (kbd "M-o") 'other-window)
    (global-set-key (kbd "C-x g") 'magit-status)
    (global-set-key (kbd "M-/") 'hippie-expand)
+   (global-set-key (kbd "C-c C-m") 'smex)
+   (global-set-key (kbd "C-x C-m") 'smex)
  #+END_SRC
