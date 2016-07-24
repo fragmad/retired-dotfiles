@@ -84,6 +84,7 @@ I like to be able to use the command key as a meta key when using my Macbook Air
        (setq ns-command-modifier 'meta)
        (setq ns-right-alternative-modifier (quote none)))
 #+END_SRC
+
 ** Disable window decorations
 
 #+BEGIN_SRC emacs-lisp
@@ -112,7 +113,8 @@ I mostly use Zenburn but will occassionally use cyberpunk if I'm being dramatic.
 ;(load-theme 'zenburn t)
 
 #+BEGIN_SRC emacs-lisp
-(load-theme 'cyberpunk t)
+;(load-theme 'cyberpunk t)
+(load-theme 'solarized-dark t)
 #+END_SRC
 
 ** Enable Smart Mode Line
