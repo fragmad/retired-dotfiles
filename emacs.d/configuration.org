@@ -24,6 +24,11 @@ Use cask and pallet for managing packages.
 (require 'pallet)
 #+END_SRC
 
+* Load Maylon
+
+#+BEGIN_SRC emacs-lisp
+  (load-file "~/Personal/code/malyon.el")
+#+END_SRC
 * Set personal information
 
 #+BEGIN_SRC emacs-lisp
@@ -42,7 +47,7 @@ user-mail-address "fragmad@gmail.com")
 I want to start using evil more. Make it easy for me to change my mind.
 
 #+BEGIN_SRC emacs-lisp
-(evil-mode 1)
+(evil-mode 0)
 #+END_SRC
 
 Enable =surround= everywhere.
@@ -124,6 +129,7 @@ I'm trying out Smart Mode Line.
 I'd like to use the Powerline theme. Other themes are available. :)
 
 #+BEGIN_SRC emacs-lisp
+(setq sml/no-confirm-load-theme t)
 (setq sml/theme 'powerline)
 (sml/setup)
 #+END_SRC
@@ -429,4 +435,6 @@ Certain modes require visual-line-mode.
    (global-set-key (kbd "M-/") 'hippie-expand)
    (global-set-key (kbd "C-c C-m") 'smex)
    (global-set-key (kbd "C-x C-m") 'smex)
+   (global-set-key [f8] 'neotree-toggle)
+   (global-set-key [f7] 'neotree-find)
  #+END_SRC
