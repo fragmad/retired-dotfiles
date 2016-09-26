@@ -75,7 +75,8 @@ acejump-mode also looks really good. Let's start using it.
 
 #+BEGIN_SRC emacs-lisp
 (require 'ace-jump-mode)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+(define-key global-map [f6] 'ace-jump-mode)
 #+END_SRC
 * UI Preferences
 
