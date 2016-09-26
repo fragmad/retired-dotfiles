@@ -71,6 +71,12 @@ expand-region.el is an incredibly useful package. Let's use it!
 (global-set-key (kbd "C-=") 'er/expand-region)
 #+END_SRC
 
+acejump-mode also looks really good. Let's start using it.
+
+#+BEGIN_SRC emacs-lisp
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+#+END_SRC
 * UI Preferences
 
 Kill all the window decoration.
