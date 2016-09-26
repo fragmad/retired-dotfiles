@@ -64,6 +64,13 @@ Disable Evil Mode in Some Modes
 
 * Utility Functions
 
+expand-region.el is an incredibly useful package. Let's use it!
+
+#+BEGIN_SRC emacs-lisp
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
+#+END_SRC
+
 * UI Preferences
 
 Kill all the window decoration.
@@ -133,6 +140,7 @@ I'd like to use the Powerline theme. Other themes are available. :)
 (setq sml/theme 'powerline)
 (sml/setup)
 #+END_SRC
+
 
 * Programming Languages
 
@@ -419,22 +427,34 @@ Certain modes require visual-line-mode.
 * Some custom keybindings
 
  #+BEGIN_SRC emacs-lisp
-   (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-   (global-set-key (kbd "C-+") 'text-scale-increase)
-   (global-set-key (kbd "C--") 'text-scale-decrease)
-   (global-set-key [f11] 'toggle-frame-fullscreen)
-   (global-set-key [f12] 'indent-buffer)
-   (global-set-key (kbd "C-c C-s") 'ispell-word)
-   (global-set-key (kbd "C-x C-k") 'kill-region)
-   (global-set-key (kbd "C-c C-k") 'kill-region)
-   (global-set-key (kbd "C-c s") 'multi-term)
-   (global-set-key (kbd "M-<up>")  'fragmad/move-line-up)
-   (global-set-key (kbd "M-<down>")  'fragmad/move-line-down)
-   (global-set-key (kbd "M-o") 'other-window)
-   (global-set-key (kbd "C-x g") 'magit-status)
-   (global-set-key (kbd "M-/") 'hippie-expand)
-   (global-set-key (kbd "C-c C-m") 'smex)
-   (global-set-key (kbd "C-x C-m") 'smex)
-   (global-set-key [f8] 'neotree-toggle)
-   (global-set-key [f7] 'neotree-find)
+      (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+      (global-set-key (kbd "C--") 'text-scale-increase)
+      (global-set-key (kbd "C--") 'text-scale-decrease)
+      (global-set-key (kbd "C-w") 'backward-kill-word)
+      (global-set-key [f11] 'toggle-frame-fullscreen)
+      (global-set-key [f12] 'indent-buffer)
+      (global-set-key (kbd "C-c C-s") 'ispell-word)
+      (global-set-key (kbd "C-x C-k") 'kill-region)
+      (global-set-key (kbd "C-c C-k") 'kill-region)
+      (global-set-key (kbd "C-c s") 'multi-term)
+      (global-set-key (kbd "M-<up>")  'fragmad/move-line-up)
+      (global-set-key (kbd "M-<down>")  'fragmad/move-line-down)
+      (global-set-key (kbd "M-o") 'other-window)
+      (global-set-key (kbd "C-x g") 'magit-status)
+      (global-set-key (kbd "M-/") 'hippie-expand)
+      (global-set-key (kbd "C-c C-m") 'smex)
+      (global-set-key (kbd "C-x C-m") 'smex)
+      (global-set-key [f1] (lambda ()
+                             (interactive)
+                             (switch-to-buffer nil)))
+      (global-set-key [f2] 'other-window)
+      (global-set-key [f5] (lambda ()
+                           (interactive)
+                           (if (and (buffer-modified-p)
+                                    (not (eq 'dired-mode major-mode)))
+                               (error "Buffer has unsaved changes")
+                             (kill-buffer (current-buffer)))))
+      (global-set-key [f8] 'neotree-toggle)
+      (global-set-key [f7] 'neotree-find)
+      (global-set-key [f9] 'toggle-truncate-lines)
  #+END_SRC
