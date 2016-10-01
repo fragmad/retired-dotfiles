@@ -24,11 +24,7 @@ Use cask and pallet for managing packages.
 (require 'pallet)
 #+END_SRC
 
-* Load Maylon
 
-#+BEGIN_SRC emacs-lisp
-  (load-file "~/Personal/code/malyon.el")
-#+END_SRC
 * Set personal information
 
 #+BEGIN_SRC emacs-lisp
