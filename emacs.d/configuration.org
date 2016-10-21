@@ -82,6 +82,21 @@ Kill all the window decoration.
 (set-frame-parameter nil 'fullscreen 'fullboth)
 #+END_SRC
 
+Wind Move Keys are useful.
+
+#+BEGIN_SRC emacs-lisp
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+#+END_SRC
+
+Provide support for terminals.
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-c <left>")  'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+(global-set-key (kbd "C-c <up>")    'windmove-up)
+(global-set-key (kbd "C-c <down>")  'windmove-down)
+#+END_SRC
 ** Mac OS X Specifics
 
 First we need to know if we are using a Mac
