@@ -253,8 +253,6 @@ documentation.
   (setq jedi:complete-on-dot t)
   (add-hook 'python-mode-hook 'linum-mode)
   (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
-  (add-hook 'python-mode-hook 'paraedit-mode)
-
  #+END_SRC
 
 ** Magit
