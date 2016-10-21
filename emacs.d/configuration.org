@@ -233,7 +233,8 @@ whole expression when point is on a paren.
     (add-hook hook (lambda ()
                      (setq show-paren-style 'expression)
                      (paredit-mode)
-                     (rainbow-delimiters-mode))))
+                     (rainbow-delimiters-mode)
+                     (linum-mode))))
 #+END_SRC
 
 If I'm writing in Emacs lisp I'd like to use =eldoc-mode= to display
@@ -250,6 +251,9 @@ documentation.
   (add-hook 'python-mode-hook (lambda () (elpy-enable)))
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t)
+  (add-hook 'python-mode-hook 'linum-mode)
+  (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'python-mode-hook 'paraedit-mode)
 
  #+END_SRC
 
