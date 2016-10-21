@@ -249,6 +249,8 @@ documentation.
   (setq python-indent 4)
   (add-hook 'python-mode-hook (lambda () (elpy-enable)))
   (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+
  #+END_SRC
 
 ** Magit
