@@ -26,6 +26,8 @@
 (depends-on "evil-surround")
 (depends-on "expand-region")
 (depends-on "f")
+(depends-on "feature-mode")
+(depends-on "feature-mode")
 (depends-on "fill-column-indicator")
 (depends-on "findr")
 (depends-on "flx-ido")
