@@ -81,7 +81,7 @@ Kill all the window decoration.
 (set-frame-parameter nil 'fullscreen 'fullboth)
 #+END_SRC
 
-Wind Move Keys are useful.
+Wind Move Keys are useful. (Actually not. Disabled for now.)
 
 #+BEGIN_SRC emacs-lisp
 ;(when (fboundp 'windmove-default-keybindings)
@@ -96,6 +96,13 @@ Provide support for terminals.
 (global-set-key (kbd "C-c <up>")    'windmove-up)
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 #+END_SRC
+
+Start Nyan-Mode. :)
+
+#+BEGIN_SRC emacs-lisp
+(nyan-mode 1)
+#+END_SRC
+
 ** Mac OS X Specifics
 
 First we need to know if we are using a Mac
@@ -291,6 +298,12 @@ documentation.
 (global-set-key (kbd "C-c C-v") 'hrs/search-project-for-symbol-at-point)
 #+END_SRC
 
+** Cucumber
+
+#+BEGIN_SRC emacs-lisp
+(require 'feature-mode)
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+#+END_SRC
 * Terminal
 
  =multi-term= works well for managing shell sessions.
