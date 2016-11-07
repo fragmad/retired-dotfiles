@@ -13,7 +13,6 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
   (sensible-defaults/use-all-keybindings)
 #+END_SRC
 
-
 * Package Management
 
 Use cask and pallet for managing packages.
@@ -85,8 +84,8 @@ Kill all the window decoration.
 Wind Move Keys are useful.
 
 #+BEGIN_SRC emacs-lisp
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
+;(when (fboundp 'windmove-default-keybindings)
+;  (windmove-default-keybindings))
 #+END_SRC
 
 Provide support for terminals.
@@ -142,9 +141,12 @@ Nothing here yet.
 I mostly use Zenburn but will occassionally use cyberpunk if I'm being dramatic.
 ;(load-theme 'zenburn t)
 
+I've got no theme set at the moment and it seems to look okay. The only thing that I don't like is that org-babel blocks aren't visible as blocks. However, if the syntax highlighting works better then that's a win.
+
 #+BEGIN_SRC emacs-lisp
-(load-theme 'cyberpunk t)
-;(load-theme 'solarized-dark t)
+;(load-theme 'cyberpunk t)
+(load-theme 'solarized-dark t)
+;(load-theme 'solarized-light t)
 #+END_SRC
 
 ** Enable Smart Mode Line

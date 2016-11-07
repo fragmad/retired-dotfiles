@@ -1,6 +1,7 @@
 (source gnu)
 (source melpa)
 
+(depends-on "2048-game")
 (depends-on "ace-jump-mode")
 (depends-on "ag")
 (depends-on "auctex")
@@ -26,7 +27,6 @@
 (depends-on "evil-surround")
 (depends-on "expand-region")
 (depends-on "f")
-(depends-on "feature-mode")
 (depends-on "feature-mode")
 (depends-on "fill-column-indicator")
 (depends-on "findr")
@@ -54,6 +54,7 @@
 (depends-on "jedi")
 (depends-on "jump")
 (depends-on "less-css-mode")
+(depends-on "leuven-theme")
 (depends-on "magit")
 (depends-on "magit-popup")
 (depends-on "markdown-mode")
