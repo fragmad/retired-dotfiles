@@ -28,11 +28,6 @@
 (depends-on "expand-region")
 (depends-on "f")
 (depends-on "feature-mode")
-<<<<<<< HEAD
-=======
-(depends-on "feature-mode")
-(depends-on "feature-mode")
->>>>>>> 725999e5d369246a924e1172429cb7f355449e07
 (depends-on "fill-column-indicator")
 (depends-on "findr")
 (depends-on "flx-ido")
