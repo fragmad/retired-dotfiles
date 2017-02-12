@@ -8,9 +8,9 @@ Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for so
 
 
 #+BEGIN_SRC emacs-lisp
-  (load-file "~/Personal/code/sensible-defaults.el/sensible-defaults.el")
-  (sensible-defaults/use-all-settings)
-  (sensible-defaults/use-all-keybindings)
+;  (load-file "~/Personal/code/sensible-defaults.el/sensible-defaults.el")
+;  (sensible-defaults/use-all-settings)
+;  (sensible-defaults/use-all-keybindings)
 #+END_SRC
 
 * Package Management
@@ -152,8 +152,9 @@ I've got no theme set at the moment and it seems to look okay. The only thing th
 
 #+BEGIN_SRC emacs-lisp
 ;(load-theme 'cyberpunk t)
-(load-theme 'solarized-dark t)
+;(load-theme 'solarized-dark t)
 ;(load-theme 'solarized-light t)
+(load-theme 'zenburn t)
 #+END_SRC
 
 ** Enable Smart Mode Line
@@ -337,16 +338,21 @@ documentation.
 ** Task Management
  #+BEGIN_SRC emacs-lisp
 
- (setq org-directory "~/org")
+ (setq org-directory "~/Dropbox/org")
 
  (defun org-file-path (filename)
    "Return the absolute address of an org file, given its relative name."
    (concat (file-name-as-directory org-directory) filename))
 
  (setq org-index-file (org-file-path "index.org"))
+ (setq org-scrapbook-file (org-file-path "scrapbook.org")) 
+
  (setq org-archive-location
        (concat (org-file-path "archive.org") "::* From %s"))
  #+END_SRC
+
+ #+RESULTS:
+ : ~/Dropbox/org/archive.org::* From %s
 
 
  I store all my todos in =~/org/index.org=, so I'd like to derive my agenda from
@@ -385,14 +391,16 @@ documentation.
 
  #+BEGIN_SRC emacs-lisp
    (setq org-capture-templates
-         '(("t" "Todo"
-            entry
-            (file org-index-file)
-            "* TODO %?\n")))
+         '(("t" "Todo"  entry (file org-index-file)
+            "* TODO %?\n")
+            ("s" "Scrapbook"  entry  (file org-scrapbook-file) 
+            "* Entry %U ")
+            ("g" "Groceries"
+               checkitem
+            (file (org-file-path "groceries.org")))))
  #+END_SRC
 
- When I'm starting an org capture template I'd like to begin in insert mode. I'm
- opening it up in order to start typing something, so this skips a step.
+ When I'm starting an org capture template I'd like to begin in insert mode. I'm  opening it up in order to start typing something, so this skips a step.
 
  #+BEGIN_SRC emacs-lisp
    (add-hook 'org-capture-mode-hook 'evil-insert-state)
@@ -526,7 +534,7 @@ Certain modes require visual-line-mode.
 
  #+BEGIN_SRC emacs-lisp
       (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-      (global-set-key (kbd "C--") 'text-scale-increase)
+      (global-set-key (kbd "C-+") 'text-scale-increase)
       (global-set-key (kbd "C--") 'text-scale-decrease)
       (global-set-key (kbd "C-w") 'backward-kill-word)
       (global-set-key [f11] 'toggle-frame-fullscreen)
