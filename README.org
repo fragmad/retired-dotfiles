@@ -1,0 +1,17 @@
+* README 
+
+My dotfiles. Mostly a collage of other people's efforts. Mostly works on all of my systems. 
+
+The ~/.local_config contains zsh and bash settings for my different environments and isn't version controlled.
+
+** Worklist 
+*** TODO Add a cheatsheet for daily commands.
+*** TODO Tidy up how code is organised between personal and professional. 
+    - This is affecting gopaths and other such things
+
+
+
+
+
+
+
