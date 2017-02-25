@@ -171,3 +171,5 @@ exec --no-startup-id nm-applet
 # Cycle through active workspaces
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
+
+exec setxkbmap -option ctrl:nocap
