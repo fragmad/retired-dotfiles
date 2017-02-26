@@ -91,10 +91,10 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1 chrome
-bindsym $mod+2 workspace 2 firefox
-bindsym $mod+3 workspace 3 terminal
-bindsym $mod+4 workspace 4 emacs
+bindsym $mod+1 workspace 1 
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3 
+bindsym $mod+4 workspace 4 
 bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
@@ -103,10 +103,10 @@ bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10 
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace 1 chrome
-bindsym $mod+Shift+2 move container to workspace 2 firefox
-bindsym $mod+Shift+3 move container to workspace 3 terminal
-bindsym $mod+Shift+4 move container to workspace 4 emacs
+bindsym $mod+Shift+1 move container to workspace 1 
+bindsym $mod+Shift+2 move container to workspace 2 
+bindsym $mod+Shift+3 move container to workspace 3 
+bindsym $mod+Shift+4 move container to workspace 4 
 bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
@@ -157,7 +157,7 @@ bar {
         position top
 }
 
-exec_always xmodmap ~/.xmodmap
+#exec_always xmodmap ~/.xmodmap
 
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
@@ -165,11 +165,13 @@ bindsym XF86AudioMute exec amixer -q set Master toggle
 
 exec --no-startup-id feh --randomize --bg-fill ~/Pictures/100\ Studio\ Ghibli\ wallpapers\ -\ Imgur
 
-exec mate-volume-control-applet
+exec --no-startup-id volumeicon 
 exec --no-startup-id nm-applet
 
 # Cycle through active workspaces
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
-exec setxkbmap -option ctrl:nocap
+
+#exec setxkbmap -option ctrl:swapcaps
+
