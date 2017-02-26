@@ -280,6 +280,24 @@ documentation.
   (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
  #+END_SRC
 
+** Javascript
+
+#+BEGIN_SRC emacs-lisp
+
+  (add-to-list 'auto-mode-alist '("\\.json$" . js-mode))
+  (add-hook 'js-mode-hook 'js2-minor-mode)
+  (add-hook 'js2-mode-hook 'ac-js2-mode)
+
+  (setq js2-highlight-level 3)
+
+
+  (add-hook 'js-mode-hook (lambda () (tern-mode t)))
+  (eval-after-load 'tern
+    '(progn
+       (require 'tern-auto-complete)
+       (tern-ac-setup)))
+ #+END_SRC
+
 ** Magit
 
 
@@ -305,6 +323,7 @@ documentation.
 (require 'feature-mode)
 (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 #+END_SRC
+
 * Terminal
 
  =multi-term= works well for managing shell sessions.
