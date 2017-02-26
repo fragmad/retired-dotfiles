@@ -167,11 +167,12 @@ exec --no-startup-id feh --randomize --bg-fill ~/Pictures/100\ Studio\ Ghibli\ w
 
 exec --no-startup-id volumeicon 
 exec --no-startup-id nm-applet
+exec dropbox start
 
 # Cycle through active workspaces
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
 
-#exec setxkbmap -option ctrl:swapcaps
+exec setxkbmap -option ctrl:swapcaps
 
