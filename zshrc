@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/well/.oh-my-zsh
+  export ZSH=/home/$USER/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -87,15 +87,12 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH="~/.cask/bin:$PATH"
 
-source ~/.aliases
-
 export ALTERNATE_EDITOR=""
 export EDITOR="emacsclient -t"                  # $EDITOR should open in terminal
 export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI with non-daemon as alternate
 
 alias emax="emacsclient -t"                      # used to be "emacs -nw"
-alias semac="sudo emacsclient -t"                # used to be "sudo emacs -nw"
-alias emacsc="emacsclient -c -a emacs"           # new - opens the GUI with alternate non-daemonV
+
 
 export PATH=$PATH:/usr/local/go/bin
 
@@ -103,3 +100,8 @@ alias playsid="find ~/Music/C64Music -name *.sid| sort -R| head -n1| xargs sidpl
 alias pinknoise="play -t sl -r48000 -c2 - synth -1 pinknoise tremolo .1 40 <  /dev/zero"
 alias brownnoise="play -t sl -r48000 -c2 - synth -1 brownoise tremolo .1 40 <  /dev/zero"
 alias whitenoise="play -t sl -r48000 -c2 - synth -1 whitenoise tremolo .1 40 <  /dev/zero"
+
+
+EDITOR="emacsclient --tty"
+export GOPATH="$HOME/code/go"
+source ~/.local_config

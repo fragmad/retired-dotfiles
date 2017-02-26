@@ -31,7 +31,10 @@ bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run
+#bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec --no-startup-id rofi -show run
+bindsym $mod+x exec --no-startup-id rofi -show window
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -96,8 +99,8 @@ bindsym $mod+5 workspace 5
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9 hexchat
-bindsym $mod+0 workspace 10 evolution
+bindsym $mod+9 workspace 9 
+bindsym $mod+0 workspace 10 
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1 chrome
@@ -108,8 +111,8 @@ bindsym $mod+Shift+5 move container to workspace 5
 bindsym $mod+Shift+6 move container to workspace 6
 bindsym $mod+Shift+7 move container to workspace 7
 bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9 hexchat
-bindsym $mod+Shift+0 move container to workspace 10 evoluton
+bindsym $mod+Shift+9 move container to workspace 9 
+bindsym $mod+Shift+0 move container to workspace 10 
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -163,7 +166,10 @@ bindsym XF86AudioMute exec amixer -q set Master toggle
 exec --no-startup-id feh --randomize --bg-fill ~/Pictures/100\ Studio\ Ghibli\ wallpapers\ -\ Imgur
 
 exec mate-volume-control-applet
+exec --no-startup-id nm-applet
 
 # Cycle through active workspaces
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
+
+exec setxkbmap -option ctrl:nocap
