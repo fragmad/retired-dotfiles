@@ -10,3 +10,4 @@ ln -s ~/dotfiles/i3/config ~/.i3/config
 ln -s ~/dotfiles/i3status.conf ~/.i3status.conf
 ln -s ~/dotfiles/vimrc ~/.vimrc
 ln -s ~/dotfiles/vim/colors/solarized.vim ~/.vim/colors/solarized.vim
+ln -s ~/dotfiles/spacemacs ~/.spacemacs
