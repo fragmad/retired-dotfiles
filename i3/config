@@ -157,8 +157,8 @@ bar {
         position top
 }
 
-#exec_always xmodmap ~/.xmodmap
-
+exec_always xmodmap ~/.xmodmap
+            
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
@@ -177,6 +177,7 @@ exec unclutter -idle 1 -noevents &
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
-
 exec setxkbmap -option ctrl:swapcaps
 
+#exec killall -q <notification daemon>
+exec --no-startup-id dunst -config ~/dunstrc
