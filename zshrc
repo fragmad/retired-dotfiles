@@ -5,8 +5,8 @@
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="gallifrey"
+ZSH_THEME="robbyrussell"
+#ZSH_THEME="gallifrey"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -105,3 +105,5 @@ alias whitenoise="play -t sl -r48000 -c2 - synth -1 whitenoise tremolo .1 40 <  
 EDITOR="emacsclient --tty"
 export GOPATH="$HOME/code/go"
 source ~/.local_config
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
