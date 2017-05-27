@@ -1,12 +1,12 @@
 #+TITLE: Emacs Configuration
 
-My emacs configuration. I expect this to grow over time and it is very much a work in progress. Many of the ideas from this are taken shameless from  Harry Schwartz's configuration which can be found [[https://github.com/hrs/dotfiles][at his github dotfiles.]]
+My emacs configuration. I expect this to grow over time and it is very much a work in progress. Many of the ideas from this are taken shameless from  Harry Schwartz's configuration which can be found [[https://github.com/hrs/dotfiles][at this github dotfiles.]]
 
 * Circumvent stupid DNS servers
 
 My ISP are bastards and don't let DNS fail properly. 
 
-#+BEGIN_SRC
+#+BEGIN_SRC emacs-lisp
 (setq tramp-ssh-controlmaster-options
       "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
 #+END_SRC 
@@ -558,7 +558,7 @@ Let's try using helm.
 I want that has visual line mode enabled to stop at 80 characters. This is important to me as it helps me process text much more easily. Use this in markdown-mode and text-mode. Anywhere else I'm likely to be writing code so should enable this manually. 
 
 #+BEGIN_SRC emacs-lisp
-(global-visual-fill-column-mode)
+;(global-visual-fill-column-mode)
 #+END_SRC
 
 Certain modes require visual-line-mode.
@@ -602,3 +602,4 @@ Certain modes require visual-line-mode.
       (global-set-key [f7] 'neotree-find)
       (global-set-key [f9] 'toggle-truncate-lines)
  #+END_SRC
+
