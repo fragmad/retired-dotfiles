@@ -2,10 +2,18 @@
 
 My emacs configuration. I expect this to grow over time and it is very much a work in progress. Many of the ideas from this are taken shameless from  Harry Schwartz's configuration which can be found [[https://github.com/hrs/dotfiles][at his github dotfiles.]]
 
+* Circumvent stupid DNS servers
+
+My ISP are bastards and don't let DNS fail properly. 
+
+#+BEGIN_SRC
+(setq tramp-ssh-controlmaster-options
+      "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
+#+END_SRC 
+
 * Use sensible-defaults.el
 
 Use [[https://github.com/hrs/sensible-defaults.el][sensible-defaults.el]] for some basic settings.
-
 
 #+BEGIN_SRC emacs-lisp
 ;  (load-file "~/Personal/code/sensible-defaults.el/sensible-defaults.el")
@@ -517,7 +525,7 @@ documentation.
 
    (setq ido-enable-flex-matching t)
    (setq ido-everywhere t)
-   (ido-mode 1)
+  (ido-mode 1)
    (ido-ubiquitous)
    (flx-ido-mode 1) ; better/faster matching
    (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
@@ -536,7 +544,7 @@ Let's try using helm.
 
 ** Word wrapping
 
-I want that has visual line mode enabled to stop at 80 characters. This is important to me as it helps me process text much more easily.
+I want that has visual line mode enabled to stop at 80 characters. This is important to me as it helps me process text much more easily. Use this in markdown-mode and text-mode. Anywhere else I'm likely to be writing code so should enable this manually. 
 
 #+BEGIN_SRC emacs-lisp
 (global-visual-fill-column-mode)
@@ -546,7 +554,7 @@ Certain modes require visual-line-mode.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'markdown-mode-hook (lambda () (visual-line-mode t)))
-  (add-hook 'org-mode-hook (lambda () (visual-line-mode t)))
+  (add-hook 'text-mode-hook (lambda () (visual-line-mode t)))
 #+END_SRC
 
 * Some custom keybindings
