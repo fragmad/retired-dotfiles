@@ -85,7 +85,7 @@ acejump-mode also looks really good. Let's start using it.
 (define-key global-map [f6] 'ace-jump-mode)
 #+END_SRC
 * UI Preferences
-
+** Startup 
 Disable the splash screen and give me some snark. 
 The information was taken from [[https://stackoverflow.com/questions/744672/unable-to-hide-welcome-screen-in-emacs][this Stack Overflow page.]] In the future I might want to do something really radical like provide my own dashboard. That's a project to save for another day. 
 
@@ -100,6 +100,64 @@ Kill all of the window decoration.
 (set-frame-parameter nil 'fullscreen 'fullboth)
 #+END_SRC
 
+** Disable window decorations
+
+#+BEGIN_SRC emacs-lisp
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(when window-system
+(scroll-bar-mode -1))
+#+END_SRC
+
+** Set the theme
+
+I mostly use Zenburn but will occassionally use cyberpunk if I'm being dramatic.
+;(load-theme 'zenburn t)
+
+I've got no theme set at the moment and it seems to look okay. The only thing that I don't like is that org-babel blocks aren't visible as blocks. However, if the syntax highlighting works better then that's a win.
+
+#+BEGIN_SRC emacs-lisp
+;(load-theme 'cyberpunk t)
+;(load-theme 'solarized-dark t)
+;(load-theme 'solarized-light t)
+(load-theme 'zenburn t)
+#+END_SRC
+
+** Set the Font
+
+#+BEGIN_SRC 
+(add-to-list 'default-frame-alist '(font . Hack ))
+(set-face-attribute 'default t :font Hack )
+#+END_SRC
+** Enable Smart Mode Line
+
+I'm trying out Smart Mode Line.
+
+I'd like to use the Powerline theme. Other themes are available. :)
+
+#+BEGIN_SRC emacs-lisp
+(setq sml/no-confirm-load-theme t)
+(setq sml/theme 'powerline)
+(sml/setup)
+#+END_SRC
+
+** Highlight the current line
+
+This makes it easier to find the cursor
+
+#+BEGIN_SRC emacs-lisp
+(when window-system
+(global-hl-line-mode))
+#+END_SRC
+
+** Nyan Mode
+Start Nyan-Mode. :)
+
+#+BEGIN_SRC emacs-lisp
+(nyan-mode 1)
+#+END_SRC
+
+** Wind Move Keys
 Wind Move Keys are useful in theory. (Actually not. Disabled for now.)
 
 #+BEGIN_SRC emacs-lisp
@@ -116,10 +174,11 @@ Provide support for terminals.
 (global-set-key (kbd "C-c <down>")  'windmove-down)
 #+END_SRC
 
-Start Nyan-Mode. :)
-
+** Highlight uncommitted changes
 #+BEGIN_SRC emacs-lisp
-(nyan-mode 1)
+(require 'diff-hl)
+(add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+(add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 #+END_SRC
 
 ** Mac OS X Specifics
@@ -140,53 +199,6 @@ I like to be able to use the command key as a meta key when using my Macbook Air
        (setq ns-right-alternative-modifier (quote none)))
 #+END_SRC
 
-** Disable window decorations
-
-#+BEGIN_SRC emacs-lisp
-(tool-bar-mode 0)
-(menu-bar-mode 0)
-(when window-system
-(scroll-bar-mode -1))
-#+END_SRC
-
-** Highlight the current line
-
-This makes it easier to find the cursor
-
-#+BEGIN_SRC emacs-lisp
-(when window-system
-(global-hl-line-mode))
-#+END_SRC
-
-** Highlight uncommitted changes
-
-Nothing here yet.
-
-** Set the theme
-
-I mostly use Zenburn but will occassionally use cyberpunk if I'm being dramatic.
-;(load-theme 'zenburn t)
-
-I've got no theme set at the moment and it seems to look okay. The only thing that I don't like is that org-babel blocks aren't visible as blocks. However, if the syntax highlighting works better then that's a win.
-
-#+BEGIN_SRC emacs-lisp
-;(load-theme 'cyberpunk t)
-;(load-theme 'solarized-dark t)
-;(load-theme 'solarized-light t)
-(load-theme 'zenburn t)
-#+END_SRC
-
-** Enable Smart Mode Line
-
-I'm trying out Smart Mode Line.
-
-I'd like to use the Powerline theme. Other themes are available. :)
-
-#+BEGIN_SRC emacs-lisp
-(setq sml/no-confirm-load-theme t)
-(setq sml/theme 'powerline)
-(sml/setup)
-#+END_SRC
 
 * Helm
 
@@ -247,9 +259,6 @@ This package makes finding files easier and includes a nice feature called helm-
   (helm-mode 1)
 #+END_SRC
 
-#+RESULTS:
-: t
-
 * Programming Languages
 
 I like everything indented by four spaces by default.
@@ -257,6 +266,13 @@ I like everything indented by four spaces by default.
 #+BEGIN_SRC emacs-lisp
 (setq-default tab-width 4)
 #+END_SRC
+
+Treat CamelCase symbols as separate words to make editing easier. 
+
+#+BEGIN_SRC emacs-lisp
+(global-subword-mode 1)
+#+END_SRC
+
 
 ** Lisps
 (this is all taken for HRS's configuration for later work)
@@ -322,6 +338,12 @@ documentation.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'with-editor-mode-hook 'evil-insert-state)
+#+END_SRC
+
+Enable spell checking. 
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 #+END_SRC
 
 ** Projectile
