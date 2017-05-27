@@ -31,7 +31,6 @@ Use cask and pallet for managing packages.
 (require 'pallet)
 #+END_SRC
 
-
 * Set personal information
 
 #+BEGIN_SRC emacs-lisp
@@ -63,6 +62,7 @@ Disable Evil Mode in Some Modes
 
 #+BEGIN_SRC emacs-lisp
   (dolist (mode '(ag-mode
+                  erc-modes
                   flycheck-error-list-mode
                   git-rebase-mode))
     (add-to-list 'evil-emacs-state-modes mode))
@@ -110,17 +110,13 @@ Kill all of the window decoration.
 #+END_SRC
 
 ** Set the theme
-
-I mostly use Zenburn but will occassionally use cyberpunk if I'm being dramatic.
-;(load-theme 'zenburn t)
-
-I've got no theme set at the moment and it seems to look okay. The only thing that I don't like is that org-babel blocks aren't visible as blocks. However, if the syntax highlighting works better then that's a win.
+A smorgasbord of themes to choose from.  
 
 #+BEGIN_SRC emacs-lisp
 ;(load-theme 'cyberpunk t)
-;(load-theme 'solarized-dark t)
+(load-theme 'solarized-dark t)
 ;(load-theme 'solarized-light t)
-(load-theme 'zenburn t)
+;(load-theme 'zenburn t)
 #+END_SRC
 
 ** Set the Font
@@ -198,7 +194,6 @@ I like to be able to use the command key as a meta key when using my Macbook Air
        (setq ns-command-modifier 'meta)
        (setq ns-right-alternative-modifier (quote none)))
 #+END_SRC
-
 
 * Helm
 
@@ -334,7 +329,6 @@ documentation.
  #+END_SRC
 
 ** Magit
-
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'with-editor-mode-hook 'evil-insert-state)
@@ -530,6 +524,20 @@ Enable spell checking.
 
  Nothing here yet.
 
+* ERC 
+
+I am experimenting with using IRC as a composition tool. The logs need to be saved somewhere.
+
+#+BEGIN_SRC emacs-lisp
+(erc-log-mode) 
+(setq erc-log-channels-directory "~/Dropbox/Writing/Irssi_Logs/")
+(setq erc-generate-log-file-name-function (quote erc-generate-log-file-name-with-date))
+(setq erc-save-buffer-on-part nil)
+(setq erc-save-queries-on-quit nil)
+(setq erc-log-write-after-insert t)
+(setq erc-log-write-after-send t)
+#+END_SRC
+
 * Editing
 
 ** Always use spaces
@@ -550,6 +558,7 @@ Enable spell checking.
    (add-hook 'markdown-mode-hook #'flycheck-mode)
    (add-hook 'text-mode-hook #'flycheck-mode)
    (add-hook 'org-mode-hook #'flycheck-mode)
+   (add-hook 'erc-mode-hook #'flycheck-mode)
  #+END_SRC
 
 ** Configure ido
