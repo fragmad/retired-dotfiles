@@ -50,7 +50,7 @@ user-mail-address "fragmad@gmail.com")
 I want to start using evil more. Make it easy for me to change my mind.
 
 #+BEGIN_SRC emacs-lisp
-(evil-mode 0)
+(evil-mode 1)
 #+END_SRC
 
 Enable =surround= everywhere.
@@ -62,7 +62,10 @@ Enable =surround= everywhere.
 Disable Evil Mode in Some Modes
 
 #+BEGIN_SRC emacs-lisp
-
+  (dolist (mode '(ag-mode
+                  flycheck-error-list-mode
+                  git-rebase-mode))
+    (add-to-list 'evil-emacs-state-modes mode))
 #+END_SRC
 
 * Utility Functions
@@ -83,13 +86,21 @@ acejump-mode also looks really good. Let's start using it.
 #+END_SRC
 * UI Preferences
 
-Kill all the window decoration.
+Disable the splash screen and give me some snark. 
+The information was taken from [[https://stackoverflow.com/questions/744672/unable-to-hide-welcome-screen-in-emacs][this Stack Overflow page.]] In the future I might want to do something really radical like provide my own dashboard. That's a project to save for another day. 
+
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-screen t)
+(setq initial-scratch-message ";; Happy Hacking")
+#+END_SRC
+
+Kill all of the window decoration.
 
 #+BEGIN_SRC emacs-lisp
 (set-frame-parameter nil 'fullscreen 'fullboth)
 #+END_SRC
 
-Wind Move Keys are useful. (Actually not. Disabled for now.)
+Wind Move Keys are useful in theory. (Actually not. Disabled for now.)
 
 #+BEGIN_SRC emacs-lisp
 ;(when (fboundp 'windmove-default-keybindings)
