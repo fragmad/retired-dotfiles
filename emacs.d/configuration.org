@@ -601,6 +601,27 @@ Certain modes require visual-line-mode.
 
 * Some custom keybindings
 
+These are useful functions. :)
+#+BEGIN_SRC emacs-lisp 
+(defun fragmad/move-line-up ()
+  "Move up the current line."
+  (interactive)
+  (transpose-lines 1)
+  (forward-line -2)
+  (indent-according-to-mode))
+
+(defun fragmad/move-line-down ()
+  "Move down the current line."
+  (interactive)
+  (forward-line 1)
+  (transpose-lines 1)
+  (forward-line -1)
+  (indent-according-to-mode))
+#+END_SRC
+
+#+RESULTS:
+: fragmad/move-line-down
+
  #+BEGIN_SRC emacs-lisp
       (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
       (global-set-key (kbd "C-+") 'text-scale-increase)
