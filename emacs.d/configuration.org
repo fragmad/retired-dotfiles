@@ -172,9 +172,9 @@ Provide support for terminals.
 
 ** Highlight uncommitted changes
 #+BEGIN_SRC emacs-lisp
-(require 'diff-hl)
-(add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
-(add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
+;(require 'diff-hl)
+;(add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+;(add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 #+END_SRC
 
 ** Mac OS X Specifics
@@ -307,6 +307,7 @@ documentation.
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t)
   (add-hook 'python-mode-hook 'linum-mode)
+;  (add-hook 'paraedit-mode)
   (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
  #+END_SRC
 
