@@ -600,6 +600,15 @@ Certain modes require visual-line-mode.
   (add-hook 'text-mode-hook (lambda () (visual-line-mode t)))
 #+END_SRC
 
+** Backups 
+
+It's a pain having backups litter working directories. Put them in ~/tmp for sanity. 
+
+#+BEGIN_SRC emacs-lisp
+;; backup in one place. flat, no tree structure
+(setq backup-directory-alist '(("" . "~/tmp/emacs-backups")))
+#+END_SRC
+
 * Some custom keybindings
 
 These are useful functions. :)
