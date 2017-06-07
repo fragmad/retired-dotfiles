@@ -2,6 +2,14 @@
 
 My emacs configuration. I expect this to grow over time and it is very much a work in progress. Many of the ideas from this are taken shameless from  Harry Schwartz's configuration which can be found [[https://github.com/hrs/dotfiles][at this github dotfiles.]]
 
+* Always start server mode  
+
+Always start Emacs as a server so tools can latch on to it easily. :) 
+
+#+BEGIN_SRC emacs-lisp
+(server-start)
+#+END_SRC
+
 * Circumvent stupid DNS servers
 
 My ISP are bastards and don't let DNS fail properly. 
@@ -499,8 +507,8 @@ Enable spell checking.
 
 #+BEGIN_SRC emacs-lisp
 
-(require 'ox-md)
-(require 'ox-beamer)
+;(require 'ox-md)
+;(require 'ox-beamer)
 
 #+END_SRC
 
