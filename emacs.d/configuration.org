@@ -92,135 +92,135 @@ acejump-mode also looks really good. Let's start using it.
 ;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map [f6] 'ace-jump-mode)
 #+END_SRC
-* UI Preferences
-** Startup 
-Disable the splash screen and give me some snark. 
-The information was taken from [[https://stackoverflow.com/questions/744672/unable-to-hide-welcome-screen-in-emacs][this Stack Overflow page.]] In the future I might want to do something really radical like provide my own dashboard. That's a project to save for another day. 
+* ui preferences
+** startup 
+disable the splash screen and give me some snark. 
+the information was taken from [[https://stackoverflow.com/questions/744672/unable-to-hide-welcome-screen-in-emacs][this stack overflow page.]] in the future i might want to do something really radical like provide my own dashboard. that's a project to save for another day. 
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq inhibit-startup-screen t)
-(setq initial-scratch-message ";; Happy Hacking")
-#+END_SRC
+(setq initial-scratch-message ";; happy hacking")
+#+end_src
 
-Kill all of the window decoration.
+kill all of the window decoration.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (set-frame-parameter nil 'fullscreen 'fullboth)
-#+END_SRC
+#+end_src
 
-** Disable window decorations
+** disable window decorations
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (when window-system
 (scroll-bar-mode -1))
-#+END_SRC
+#+end_src
 
-** Set the theme
-A smorgasbord of themes to choose from.  
+** set the theme
+a smorgasbord of themes to choose from.  
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 ;(load-theme 'cyberpunk t)
 (load-theme 'solarized-dark t)
 ;(load-theme 'solarized-light t)
 ;(load-theme 'zenburn t)
-#+END_SRC
+#+end_src
 
-** Set the Font
+** set the font
 
-#+BEGIN_SRC 
-(add-to-list 'default-frame-alist '(font . Hack ))
-(set-face-attribute 'default t :font Hack )
-#+END_SRC
-** Enable Smart Mode Line
+#+begin_src 
+(add-to-list 'default-frame-alist '(font . hack ))
+(set-face-attribute 'default t :font hack )
+#+end_src
+** enable smart mode line
 
-I'm trying out Smart Mode Line.
+i'm trying out smart mode line.
 
-I'd like to use the Powerline theme. Other themes are available. :)
+i'd like to use the powerline theme. other themes are available. :)
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq sml/no-confirm-load-theme t)
 (setq sml/theme 'powerline)
 (sml/setup)
-#+END_SRC
+#+end_src
 
-** Highlight the current line
+** highlight the current line
 
-This makes it easier to find the cursor
+this makes it easier to find the cursor
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (when window-system
 (global-hl-line-mode))
-#+END_SRC
+#+end_src
 
-** Nyan Mode
-Start Nyan-Mode. :)
+** nyan mode
+start nyan-mode. :)
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (nyan-mode 1)
-#+END_SRC
+#+end_src
 
-** Wind Move Keys
-Wind Move Keys are useful in theory. (Actually not. Disabled for now.)
+** wind move keys
+wind move keys are useful in theory. (actually not. disabled for now.)
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 ;(when (fboundp 'windmove-default-keybindings)
 ;  (windmove-default-keybindings))
-#+END_SRC
+#+end_src
 
-Provide support for terminals.
+provide support for terminals.
 
-#+BEGIN_SRC emacs-lisp
-(global-set-key (kbd "C-c <left>")  'windmove-left)
-(global-set-key (kbd "C-c <right>") 'windmove-right)
-(global-set-key (kbd "C-c <up>")    'windmove-up)
-(global-set-key (kbd "C-c <down>")  'windmove-down)
-#+END_SRC
+#+begin_src emacs-lisp
+;(global-set-key (kbd "C-c <left>")  'windmove-left)
+;(global-set-key (kbd "C-c <right>") 'windmove-right)
+;(global-set-key (kbd "C-c <up>")    'windmove-up)
+;(global-set-key (kbd "C-c <down>")  'windmove-down)
+#+end_src
 
-** Highlight uncommitted changes
-#+BEGIN_SRC emacs-lisp
+** highlight uncommitted changes
+#+begin_src emacs-lisp
 ;(require 'diff-hl)
 ;(add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
 ;(add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
-#+END_SRC
+#+end_src
 
-** Mac OS X Specifics
+** mac os x specifics
 
-First we need to know if we are using a Mac
+first we need to know if we are using a mac
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (defun fragmad/system-is-mac()
     (interactive)
     (string-equal system-type "darwin"))
-#+END_SRC
+#+end_src
 
-I like to be able to use the command key as a meta key when using my Macbook Air.
+i like to be able to use the command key as a meta key when using my macbook air.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (if (fragmad/system-is-mac)
        (setq ns-command-modifier 'meta)
        (setq ns-right-alternative-modifier (quote none)))
-#+END_SRC
+#+end_src
 
 * Helm
 
 
-This package makes finding files easier and includes a nice feature called helm-sematic which parses source code files for things like classes and functions. Very nice. I've taken the extended configuration from [[https://tuhdo.github.io/helm-intro.html][this introduction]] as my initial start and will likely extend it.
+This package makes finding files easier and includes a nice feature called helm-sematic which parses source code files for things like classes and functions. very nice. i've taken the extended configuration from [[https://tuhdo.github.io/helm-intro.html][this introduction]] as my initial start and will likely extend it.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
   (require 'helm)
   (require 'helm-config)
 
-  ;; The default "C-x c" is quite close to "C-x C-c", which quits Emacs.
-  ;; Changed to "C-c h". Note: We must set "C-c h" globally, because we
+  ;; the default "c-x c" is quite close to "c-x c-c", which quits emacs.
+  ;; changed to "c-c h". note: we must set "c-c h" globally, because we
   ;; cannot change `helm-command-prefix-key' once `helm-config' is loaded.
   (global-set-key (kbd "C-c h") 'helm-command-prefix)
   (global-unset-key (kbd "C-x c"))
 
   (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB work in terminal
-  (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+  (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make tab work in terminal
+  (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using c-z
 
   (when (executable-find "curl")
     (setq helm-google-suggest-use-curl-p t))
@@ -228,12 +228,12 @@ This package makes finding files easier and includes a nice feature called helm-
   (setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
         helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
         helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-        helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+        helm-scroll-amount                    8 ; scroll 8 lines other window using m-<next>/m-<prior>
         helm-ff-file-name-history-use-recentf t
         helm-echo-input-in-header-line t)
 
   (defun spacemacs//helm-hide-minibuffer-maybe ()
-    "Hide minibuffer in Helm session if we use the header line as input field."
+    "hide minibuffer in helm session if we use the header line as input field."
     (when (with-helm-buffer helm-echo-input-in-header-line)
       (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
         (overlay-put ov 'window (selected-window))
@@ -252,15 +252,15 @@ This package makes finding files easier and includes a nice feature called helm-
 
   (setq helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match    t
-        helm-M-x-fuzzy-match        t)
+        helm-m-x-fuzzy-match        t)
 
-  (global-set-key (kbd "C-x C-f") 'helm-find-files)
+  (global-set-key (kbd "C-x c-f") 'helm-find-files)
   (global-set-key (kbd "C-x b") 'helm-mini)
   (global-set-key (kbd "M-x") 'helm-M-x)
 
   (semantic-mode 1)
   (helm-mode 1)
-#+END_SRC
+#+end_src
 
 * Programming Languages
 
@@ -618,7 +618,7 @@ It's a pain having backups litter working directories. Put them in ~/tmp for san
 #+END_SRC
 
 * Some custom keybindings
-
+ 
 These are useful functions. :)
 #+BEGIN_SRC emacs-lisp 
 (defun fragmad/move-line-up ()
