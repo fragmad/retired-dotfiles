@@ -2,12 +2,23 @@
 
 My emacs configuration. I expect this to grow over time and it is very much a work in progress. Many of the ideas from this are taken shameless from  Harry Schwartz's configuration which can be found [[https://github.com/hrs/dotfiles][at this github dotfiles.]]
 
-* Always start server mode  
+* Start Things
+** Always start server mode  
 
 Always start Emacs as a server so tools can latch on to it easily. :) 
 
 #+BEGIN_SRC emacs-lisp
 (server-start)
+#+END_SRC
+
+** Set the Garbage Collection Threshold 
+
+If this is too high then Emacs is not very responsive when it finally decided to garbage collect. I fit is too low then Emacs is slow. 
+
+Spacemacs uses this setting. It works. 
+
+#+BEGIN_SRC emacs-lisp
+(setq gc-cons-threshold 100000000) ; 100MB
 #+END_SRC
 
 * Circumvent stupid DNS servers
@@ -311,7 +322,8 @@ documentation.
 
 #+BEGIN_SRC emacs-lisp
   (setq python-indent 4)
-  (add-hook 'python-mode-hook (lambda () (elpy-enable)))
+  ;(add-hook 'python-mode-hook (lambda () (elpy-enable)))
+  (add-hook 'python-mode-hook (lambda () (anaconda-mode)))
   (add-hook 'python-mode-hook 'jedi:setup)
   (setq jedi:complete-on-dot t)
   (add-hook 'python-mode-hook 'linum-mode)
