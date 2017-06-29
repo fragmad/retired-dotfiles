@@ -64,6 +64,7 @@
 (depends-on "magit")
 (depends-on "magit-popup")
 (depends-on "markdown-mode")
+(depends-on "mu4e-maildirs-extension")
 (depends-on "multi-term")
 (depends-on "muttrc-mode")
 (depends-on "neotree")
