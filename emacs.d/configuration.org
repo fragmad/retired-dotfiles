@@ -3,19 +3,19 @@
 My emacs configuration. I expect this to grow over time and it is very much a work in progress. Many of the ideas from this are taken shameless from  Harry Schwartz's configuration which can be found [[https://github.com/hrs/dotfiles][at this github dotfiles.]]
 
 * Start Things
-** Always start server mode  
+** Always start server mode
 
-Always start Emacs as a server so tools can latch on to it easily. :) 
+Always start Emacs as a server so tools can latch on to it easily. :)
 
 #+BEGIN_SRC emacs-lisp
 (server-start)
 #+END_SRC
 
-** Set the Garbage Collection Threshold 
+** Set the Garbage Collection Threshold
 
-If this is too high then Emacs is not very responsive when it finally decided to garbage collect. I fit is too low then Emacs is slow. 
+If this is too high then Emacs is not very responsive when it finally decided to garbage collect. I fit is too low then Emacs is slow.
 
-Spacemacs uses this setting. It works. 
+Spacemacs uses this setting. It works.
 
 #+BEGIN_SRC emacs-lisp
 (setq gc-cons-threshold 100000000) ; 100MB
@@ -23,12 +23,12 @@ Spacemacs uses this setting. It works.
 
 * Circumvent stupid DNS servers
 
-My ISP are bastards and don't let DNS fail properly. 
+My ISP are bastards and don't let DNS fail properly.
 
 #+BEGIN_SRC emacs-lisp
 (setq tramp-ssh-controlmaster-options
       "-o ControlMaster=auto -o ControlPath='tramp.%%C' -o ControlPersist=no")
-#+END_SRC 
+#+END_SRC
 
 * Use sensible-defaults.el
 
@@ -87,6 +87,30 @@ Disable Evil Mode in Some Modes
     (add-to-list 'evil-emacs-state-modes mode))
 #+END_SRC
 
+My biggest problem with modal editing is that I'm a dope and forget to switch back into normal mode. This function aims to automate that.
+
+Snippit taken from here: [[https://emacs.stackexchange.com/questions/24563/evil-mode-switch-back-to-normal-mode-automatically-after-inaction][evil mode: switch back to normal mode automatically after inaction (Stack Overflow) ]]
+
+#+BEGIN_SRC emacs-lisp
+(defun evil-normalize-all-buffers ()
+  "Force a drop to normal state."
+  (unless (eq evil-state 'normal)
+    (dolist (buffer (buffer-list))
+      (set-buffer buffer)
+      (unless (or (minibufferp)
+                  (eq evil-state 'emacs))
+        (evil-force-normal-state)))
+    (message "Dropped back to normal state in all buffers")))
+
+(defvar evil-normal-timer
+  (run-with-idle-timer 10 t #'evil-normalize-all-buffers)
+  "Drop back to normal state after idle for 10 seconds.")
+
+(add-hook 'evil-mode-hook 'evil-normal-timer)
+
+#+END_SRC
+
+
 * Utility Functions
 
 expand-region.el is an incredibly useful package. Let's use it!
@@ -103,10 +127,17 @@ acejump-mode also looks really good. Let's start using it.
 ;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map [f6] 'ace-jump-mode)
 #+END_SRC
+<<<<<<< HEAD
 * ui preferences
 ** startup 
 disable the splash screen and give me some snark. 
 the information was taken from [[https://stackoverflow.com/questions/744672/unable-to-hide-welcome-screen-in-emacs][this stack overflow page.]] in the future i might want to do something really radical like provide my own dashboard. that's a project to save for another day. 
+=======
+* UI Preferences
+** Startup
+Disable the splash screen and give me some snark.
+The information was taken from [[https://stackoverflow.com/questions/744672/unable-to-hide-welcome-screen-in-emacs][this Stack Overflow page.]] In the future I might want to do something really radical like provide my own dashboard. That's a project to save for another day.
+>>>>>>> 931d2a58bb4a51bc843215318ba302413ae97921
 
 #+begin_src emacs-lisp
 (setq inhibit-startup-screen t)
@@ -128,8 +159,13 @@ kill all of the window decoration.
 (scroll-bar-mode -1))
 #+end_src
 
+<<<<<<< HEAD
 ** set the theme
 a smorgasbord of themes to choose from.  
+=======
+** Set the theme
+A smorgasbord of themes to choose from.
+>>>>>>> 931d2a58bb4a51bc843215318ba302413ae97921
 
 #+begin_src emacs-lisp
 ;(load-theme 'cyberpunk t)
@@ -140,11 +176,19 @@ a smorgasbord of themes to choose from.
 
 ** set the font
 
+<<<<<<< HEAD
 #+begin_src 
 (add-to-list 'default-frame-alist '(font . hack ))
 (set-face-attribute 'default t :font hack )
 #+end_src
 ** enable smart mode line
+=======
+#+BEGIN_SRC
+(add-to-list 'default-frame-alist '(font . Hack ))
+(set-face-attribute 'default t :font Hack )
+#+END_SRC
+** Enable Smart Mode Line
+>>>>>>> 931d2a58bb4a51bc843215318ba302413ae97921
 
 i'm trying out smart mode line.
 
@@ -281,7 +325,7 @@ I like everything indented by four spaces by default.
 (setq-default tab-width 4)
 #+END_SRC
 
-Treat CamelCase symbols as separate words to make editing easier. 
+Treat CamelCase symbols as separate words to make editing easier.
 
 #+BEGIN_SRC emacs-lisp
 (global-subword-mode 1)
@@ -322,13 +366,15 @@ documentation.
 
 #+BEGIN_SRC emacs-lisp
   (setq python-indent 4)
-  ;(add-hook 'python-mode-hook (lambda () (elpy-enable)))
+;  (add-hook 'python-mode-hook (lambda () (elpy-enable)))
   (add-hook 'python-mode-hook (lambda () (anaconda-mode)))
   (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t)
+ (setq jedi:complete-on-dot t)
   (add-hook 'python-mode-hook 'linum-mode)
-;  (add-hook 'paraedit-mode)
+  (add-hook 'paraedit-mode t)
   (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
+  (add-hook 'python-mode-hook #'global-flycheck-mode)
+  (add-hook 'python-mode-hook (lambda () (interactive) (column-marker-1 80)))
  #+END_SRC
 
 ** Javascript
@@ -355,13 +401,20 @@ documentation.
 (add-hook 'with-editor-mode-hook 'evil-insert-state)
 #+END_SRC
 
-Enable spell checking. 
+Enable spell checking.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'git-commit-mode-hook 'turn-on-flyspell)
 #+END_SRC
 
 ** Projectile
+
+#+BEGIN_SRC emacs-lisp
+;; (setq helm-projectile-fuzzy-match nil)
+(require 'helm-projectile)
+(projectile-mode)
+(helm-projectile-on)
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp
 (defun hrs/search-project-for-symbol-at-point ()
@@ -420,7 +473,7 @@ Enable spell checking.
    (concat (file-name-as-directory org-directory) filename))
 
  (setq org-index-file (org-file-path "index.org"))
- (setq org-scrapbook-file (org-file-path "scrapbook.org")) 
+ (setq org-scrapbook-file (org-file-path "scrapbook.org"))
 
  (setq org-archive-location
        (concat (org-file-path "archive.org") "::* From %s"))
@@ -468,7 +521,7 @@ Enable spell checking.
    (setq org-capture-templates
          '(("t" "Todo"  entry (file org-index-file)
             "* TODO %?\n")
-            ("s" "Scrapbook"  entry  (file org-scrapbook-file) 
+            ("s" "Scrapbook"  entry  (file org-scrapbook-file)
             "* Entry %U ")
             ("g" "Groceries"
                checkitem
@@ -545,12 +598,12 @@ Enable spell checking.
 
  Nothing here yet.
 
-* ERC 
+* ERC
 
 I am experimenting with using IRC as a composition tool. The logs need to be saved somewhere.
 
 #+BEGIN_SRC emacs-lisp
-(erc-log-mode) 
+(erc-log-mode)
 (setq erc-log-channels-directory "~/Dropbox/Writing/Irssi_Logs/")
 (setq erc-generate-log-file-name-function (quote erc-generate-log-file-name-with-date))
 (setq erc-save-buffer-on-part nil)
@@ -607,7 +660,7 @@ Let's try using helm.
 
 ** Word wrapping
 
-I want that has visual line mode enabled to stop at 80 characters. This is important to me as it helps me process text much more easily. Use this in markdown-mode and text-mode. Anywhere else I'm likely to be writing code so should enable this manually. 
+I want that has visual line mode enabled to stop at 80 characters. This is important to me as it helps me process text much more easily. Use this in markdown-mode and text-mode. Anywhere else I'm likely to be writing code so should enable this manually.
 
 #+BEGIN_SRC emacs-lisp
 ;(global-visual-fill-column-mode)
@@ -620,19 +673,24 @@ Certain modes require visual-line-mode.
   (add-hook 'text-mode-hook (lambda () (visual-line-mode t)))
 #+END_SRC
 
-** Backups 
+** Backups
 
-It's a pain having backups litter working directories. Put them in ~/tmp for sanity. 
+It's a pain having backups litter working directories. Put them in ~/tmp for sanity.
 
 #+BEGIN_SRC emacs-lisp
 ;; backup in one place. flat, no tree structure
 (setq backup-directory-alist '(("" . "~/tmp/emacs-backups")))
 #+END_SRC
 
+** Remove Trailing Whitespace
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+#+END_SRC
 * Some custom keybindings
  
 These are useful functions. :)
-#+BEGIN_SRC emacs-lisp 
+#+BEGIN_SRC emacs-lisp
 (defun fragmad/move-line-up ()
   "Move up the current line."
   (interactive)
@@ -684,4 +742,3 @@ These are useful functions. :)
       (global-set-key [f7] 'neotree-find)
       (global-set-key [f9] 'toggle-truncate-lines)
  #+END_SRC
-
