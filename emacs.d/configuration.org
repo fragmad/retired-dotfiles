@@ -127,12 +127,6 @@ acejump-mode also looks really good. Let's start using it.
 ;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map [f6] 'ace-jump-mode)
 #+END_SRC
-<<<<<<< HEAD
-* ui preferences
-** startup 
-disable the splash screen and give me some snark. 
-the information was taken from [[https://stackoverflow.com/questions/744672/unable-to-hide-welcome-screen-in-emacs][this stack overflow page.]] in the future i might want to do something really radical like provide my own dashboard. that's a project to save for another day. 
-=======
 * UI Preferences
 ** Startup
 Disable the splash screen and give me some snark.
@@ -161,7 +155,7 @@ kill all of the window decoration.
 
 <<<<<<< HEAD
 ** set the theme
-a smorgasbord of themes to choose from.  
+a smorgasbord of themes to choose from.
 =======
 ** Set the theme
 A smorgasbord of themes to choose from.
@@ -177,7 +171,7 @@ A smorgasbord of themes to choose from.
 ** set the font
 
 <<<<<<< HEAD
-#+begin_src 
+#+begin_src
 (add-to-list 'default-frame-alist '(font . hack ))
 (set-face-attribute 'default t :font hack )
 #+end_src
@@ -688,7 +682,7 @@ It's a pain having backups litter working directories. Put them in ~/tmp for san
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 * Some custom keybindings
- 
+
 These are useful functions. :)
 #+BEGIN_SRC emacs-lisp
 (defun fragmad/move-line-up ()
