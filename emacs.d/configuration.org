@@ -154,12 +154,8 @@ kill all of the window decoration.
 #+end_src
 
 <<<<<<< HEAD
-** set the theme
-a smorgasbord of themes to choose from.
-=======
 ** Set the theme
 A smorgasbord of themes to choose from.
->>>>>>> 931d2a58bb4a51bc843215318ba302413ae97921
 
 #+begin_src emacs-lisp
 ;(load-theme 'cyberpunk t)
@@ -170,19 +166,12 @@ A smorgasbord of themes to choose from.
 
 ** set the font
 
-<<<<<<< HEAD
-#+begin_src
-(add-to-list 'default-frame-alist '(font . hack ))
-(set-face-attribute 'default t :font hack )
+#+begin_src emacs-lisp
+(add-to-list 'default-frame-alist '(font . "Hack" ))
+(set-face-attribute 'default t :font "Hack" )
 #+end_src
-** enable smart mode line
-=======
-#+BEGIN_SRC
-(add-to-list 'default-frame-alist '(font . Hack ))
-(set-face-attribute 'default t :font Hack )
-#+END_SRC
+
 ** Enable Smart Mode Line
->>>>>>> 931d2a58bb4a51bc843215318ba302413ae97921
 
 i'm trying out smart mode line.
 
@@ -322,7 +311,7 @@ I like everything indented by four spaces by default.
 Treat CamelCase symbols as separate words to make editing easier.
 
 #+BEGIN_SRC emacs-lisp
-(global-subword-mode 1)
+;(global-subword-mode 1)
 #+END_SRC
 
 
@@ -359,7 +348,7 @@ documentation.
 ** Python
 
 #+BEGIN_SRC emacs-lisp
-  (setq python-indent 4)
+;  (setq python-indent 4)
 ;  (add-hook 'python-mode-hook (lambda () (elpy-enable)))
   (add-hook 'python-mode-hook (lambda () (anaconda-mode)))
   (add-hook 'python-mode-hook 'jedi:setup)
