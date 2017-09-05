@@ -1,0 +1,8 @@
+set-us-layout: 
+	setxkbmap en_US
+
+set-uk-layout: 
+	setxkbmap gb 
+
+suspend-laptop:
+	sudo -v;gnome-screensaver-command --lock;sleep 10;sudo pm-suspend
