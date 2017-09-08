@@ -314,6 +314,13 @@ Treat CamelCase symbols as separate words to make editing easier.
 ;(global-subword-mode 1)
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+(require 'fill-column-indicator)
+(setq fci-rule-column 80)
+(setq fci-rule-wdith 2)
+(fci-mode)
+
+#+END_SRC
 
 ** Lisps
 (this is all taken for HRS's configuration for later work)
