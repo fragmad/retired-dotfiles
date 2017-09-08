@@ -1,3 +1,4 @@
 configuration.el
+*.el
 .aliases
 .local_config
