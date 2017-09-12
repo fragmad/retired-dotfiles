@@ -1,4 +1,6 @@
 configuration.el
+emacs.d/local.org
+emacs.d/*.el*
 *.el
 .aliases
 .local_config

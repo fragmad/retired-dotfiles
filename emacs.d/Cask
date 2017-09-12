@@ -23,6 +23,7 @@
 (depends-on "dired-details")
 (depends-on "dired-open")
 (depends-on "dockerfile-mode")
+(depends-on "dracula-theme")
 (depends-on "elpy")
 (depends-on "engine-mode")
 (depends-on "epl")
