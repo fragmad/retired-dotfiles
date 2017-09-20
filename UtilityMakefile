@@ -15,3 +15,6 @@ work-monitors:
 set-no-caps:
 	setxkbmap -option ctrl:nocaps
 
+write-ten:
+	sleep 10m; notify-send -u normal "STOP WRITING"
+
