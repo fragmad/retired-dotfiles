@@ -1,3 +1,5 @@
+work: work-monitors set-us-layout set-no-caps
+
 set-us-layout: 
 	setxkbmap en_US
 
