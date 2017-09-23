@@ -169,8 +169,8 @@ bindsym $mod+comma exec amixer -q set Master 2dB- unmute
 bindsym $mod+p exec playerctl play-pause
 bindsym $mod+Shift+period exec playerctl next
 bindsym $mod+Shift+comma exec playerctl previous
-#bindsym XF86MonBrightne0ssUp exec xbacklight -inc 5
-#bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 exec --no-startup-id feh --randomize --bg-fill ~/Pictures/100\ Studio\ Ghibli\ wallpapers\ -\ Imgur
 
