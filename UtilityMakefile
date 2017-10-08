@@ -21,3 +21,8 @@ set-no-caps:
 write-ten:
 	sleep 10m; notify-send -u normal "STOP WRITING"
 
+show-inputs:
+	xinput list
+
+show-disable-commands: 
+	echo "xinput --disable 12";
