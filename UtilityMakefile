@@ -7,7 +7,10 @@ set-uk-layout:
 	setxkbmap gb 
 
 suspend-laptop:
-	sudo -v;gnome-screensaver-command --lock;sleep 10;sudo pm-suspend
+	sudo -v;gnome-screensaver-command --lock;sleep 3;sudo pm-suspend
+
+hibernate-laptop:
+	sudo -v;gnome-screensaver-command --lock;sleep 3;sudo pm-hibernate
 
 work-monitors:
 	./.screenlayout/default_layout.sh
@@ -15,3 +18,11 @@ work-monitors:
 set-no-caps:
 	setxkbmap -option ctrl:nocaps
 
+write-ten:
+	sleep 10m; notify-send -u normal "STOP WRITING"
+
+show-inputs:
+	xinput list
+
+show-disable-commands: 
+	echo "xinput --disable 12";
