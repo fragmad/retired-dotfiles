@@ -6,3 +6,5 @@ set --export EDITOR "emacsclient"
 
 # make Emacs usable with git
 set --export GIT_EDITOR "emacsclient"
+
+eval (dircolors /path/to/dircolorsdb | head -n 1 | sed 's/^LS_COLORS=/set -x LS_COLORS /;s/;$//')
