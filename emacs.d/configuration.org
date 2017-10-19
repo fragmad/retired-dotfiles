@@ -127,6 +127,13 @@ acejump-mode also looks really good. Let's start using it.
 ;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map [f6] 'ace-jump-mode)
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(defun wme/append-to-path (path)
+(setenv "PATH" (concat (getenv "PATH") ":" path))
+(add-to-list 'exec-path path))
+#+END_SRC
+
 * UI Preferences
 ** Startup
 Disable the splash screen and give me some snark.
@@ -323,6 +330,38 @@ Treat CamelCase symbols as separate words to make editing easier.
 
 #+END_SRC
 
+** Go
+
+Define the ``$GOPATH`` and point emacs at Go binaries.
+
+#+BEGIN_SRC emacs-lisp
+(setenv "GOPATH" "/home/well/go/")
+(wme/append-to-path (concat (getenv "GOPATH") "/bin"))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(setq gofmt-command "goimports")
+(add-hook 'before-save-hook 'gofmt-before-save)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'go-mode-hook
+     (lambda ()
+        ; (require 'go-autocomplete)
+        ; (require 'auto-complete-config)
+        ;  (ac-config-default)
+       (company-mode)
+       (set (make-local-variable 'company-backends)
+             '(company-go))
+        (company-go)
+        (if (not (string-match "go" compile-command))
+            (set (make-local-variable 'compile-command)
+                 "go build -v && go test -v && go vet"))
+        (flycheck-mode)
+        (add-hook 'go-mode-hook 'linum-mode)
+        (add-hook 'go-mode-hook 'rainbow-delimiters-mode)))
+#+END_SRC
+
 ** Lisps
 (this is all taken for HRS's configuration for later work)
 
@@ -424,6 +463,7 @@ Enable spell checking.
 (require 'feature-mode)
 (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 #+END_SRC
+
 
 * Terminal
 
