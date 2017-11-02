@@ -300,7 +300,7 @@ This package makes finding files easier and includes a nice feature called helm-
          helm-recentf-fuzzy-match    t
          helm-m-x-fuzzy-match        t)
 
-   (global-set-key (kbd "C-x c-f") 'helm-find-files)
+   (global-set-key (kbd "C-x C-f") 'helm-find-files)
    (global-set-key (kbd "C-x b") 'helm-mini)
    (global-set-key (kbd "M-x") 'helm-M-x)
 
@@ -308,7 +308,7 @@ This package makes finding files easier and includes a nice feature called helm-
    (helm-mode 1)
 #+end_src
 
-* Programming Languages
+* Programming Languages and File Formats
 
 I like everything indented by four spaces by default.
 
@@ -327,7 +327,8 @@ Treat CamelCase symbols as separate words to make editing easier.
 (setq fci-rule-column 80)
 (setq fci-rule-wdith 2)
 (fci-mode)
-
+(require 'linum-relative)
+(linum-relative-global-mode)
 #+END_SRC
 
 ** Go
@@ -402,6 +403,7 @@ documentation.
   ; (setq jedi:complete-on-dot t)
    (add-hook 'python-mode-hook 'linum-mode)
   ;  (add-hook 'paraedit-mode t)
+;(add-hook 'python-mode-hook 'linum-relative)
     (add-hook 'python-mode-hook 'elpy-mode)
     (add-hook 'python-mode-hook 'rainbow-delimiters-mode)
   ;  (add-hook 'python-mode-hook #'global-flycheck-mode)
@@ -671,12 +673,12 @@ I am experimenting with using IRC as a composition tool. The logs need to be sav
 
  #+BEGIN_SRC emacs-lisp
 
-   (setq ido-enable-flex-matching t)
-   (setq ido-everywhere t)
-  (ido-mode 1)
-   (ido-ubiquitous)
-   (flx-ido-mode 1) ; better/faster matching
-   (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
+  ;  (setq ido-enable-flex-matching t)
+  ;  (setq ido-everywhere t)
+  ; (ido-mode 1)
+  ;  (ido-ubiquitous)
+  ;  (flx-ido-mode 1) ; better/faster matching
+  ;  (setq ido-create-new-buffer 'always) ; don't confirm to create new buffers
  #+END_SRC
 
 ** Use Smex to handle M-x with ido

@@ -14,3 +14,4 @@ set -x GOROOT /usr/local/go/
 set -x GOPATH $HOME/go/
 
 set -x PATH $PATH $GOROOT/bin
+set -x PATH $PATH $GOPATH/bin
