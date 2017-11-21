@@ -126,6 +126,7 @@ acejump-mode also looks really good. Let's start using it.
 (require 'ace-jump-mode)
 ;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map [f6] 'ace-jump-mode)
+(define-key global-map (kbd "C-c C-SPC") 'ace-jump-mode)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -142,7 +143,18 @@ The information was taken from [[https://stackoverflow.com/questions/744672/unab
 
 #+begin_src emacs-lisp
 (setq inhibit-startup-screen t)
-(setq initial-scratch-message ";; happy hacking")
+(setq initial-scratch-message ";; happy hacking
+
+Keyboard shortcuts:
+
+M-o - Other Window
+f8  - Neotree toggle
+f7  - Neotree Find
+
+Commands:
+helm-projectile-find-file
+helm-projectile-grep
+")
 #+end_src
 
 kill all of the window decoration.
@@ -328,7 +340,7 @@ Treat CamelCase symbols as separate words to make editing easier.
 (setq fci-rule-wdith 2)
 (fci-mode)
 (require 'linum-relative)
-(linum-relative-global-mode)
+; (linum-relative-global-mode)
 #+END_SRC
 
 ** Go
@@ -459,6 +471,22 @@ Enable spell checking.
 (global-set-key (kbd "C-c C-v") 'hrs/search-project-for-symbol-at-point)
 #+END_SRC
 
+Work better with Neotree
+
+#+BEGIN_SRC emacs-lisp
+  (defun neotree-project-dir ()
+    "Open NeoTree using the git root."
+    (interactive)
+    (let ((project-dir (projectile-project-root))
+          (file-name (buffer-file-name)))
+      (neotree-toggle)
+      (if project-dir
+          (if (neo-global--window-exists-p)
+              (progn
+                (neotree-dir project-dir)
+                (neotree-find file-name)))
+        (message "Could not find git project root."))))
+#+END_SRC
 ** Cucumber
 
 #+BEGIN_SRC emacs-lisp
@@ -745,34 +773,35 @@ These are useful functions. :)
 : fragmad/move-line-down
 
  #+BEGIN_SRC emacs-lisp
-      (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
-      (global-set-key (kbd "C-+") 'text-scale-increase)
-      (global-set-key (kbd "C--") 'text-scale-decrease)
-      (global-set-key (kbd "C-w") 'backward-kill-word)
-      (global-set-key [f11] 'toggle-frame-fullscreen)
-      (global-set-key [f12] 'indent-buffer)
-      (global-set-key (kbd "C-c C-s") 'ispell-word)
-      (global-set-key (kbd "C-x C-k") 'kill-region)
-      (global-set-key (kbd "C-c C-k") 'kill-region)
-      (global-set-key (kbd "C-c s") 'multi-term)
-      (global-set-key (kbd "M-<up>")  'fragmad/move-line-up)
-      (global-set-key (kbd "M-<down>")  'fragmad/move-line-down)
-      (global-set-key (kbd "M-o") 'other-window)
-      (global-set-key (kbd "C-x g") 'magit-status)
-      (global-set-key (kbd "M-/") 'hippie-expand)
-      (global-set-key (kbd "C-c C-m") 'smex)
-      (global-set-key (kbd "C-x C-m") 'smex)
-      (global-set-key [f1] (lambda ()
-                             (interactive)
-                             (switch-to-buffer nil)))
-      (global-set-key [f2] 'other-window)
-      (global-set-key [f5] (lambda ()
-                           (interactive)
-                           (if (and (buffer-modified-p)
-                                    (not (eq 'dired-mode major-mode)))
-                               (error "Buffer has unsaved changes")
-                             (kill-buffer (current-buffer)))))
-      (global-set-key [f8] 'neotree-toggle)
-      (global-set-key [f7] 'neotree-find)
-      (global-set-key [f9] 'toggle-truncate-lines)
+   (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
+   (global-set-key (kbd "C-+") 'text-scale-increase)
+   (global-set-key (kbd "C--") 'text-scale-decrease)
+   (global-set-key (kbd "C-w") 'backward-kill-word)
+   (global-set-key [f11] 'toggle-frame-fullscreen)
+   (global-set-key [f12] 'indent-buffer)
+   (global-set-key (kbd "C-c C-s") 'ispell-word)
+   (global-set-key (kbd "C-x C-k") 'kill-region)
+   (global-set-key (kbd "C-c C-k") 'kill-region)
+   (global-set-key (kbd "C-c s") 'multi-term)
+   (global-set-key (kbd "M-<up>")  'fragmad/move-line-up)
+   (global-set-key (kbd "M-<down>")  'fragmad/move-line-down)
+   (global-set-key (kbd "M-o") 'other-window)
+   (global-set-key (kbd "C-x g") 'magit-status)
+   (global-set-key (kbd "M-/") 'hippie-expand)
+   (global-set-key (kbd "C-c C-m") 'smex)
+   (global-set-key (kbd "C-x C-m") 'smex)
+   (global-set-key [f1] (lambda ()
+                          (interactive)
+                          (switch-to-buffer nil)))
+   (global-set-key [f2] 'other-window)
+   (global-set-key [f5] (lambda ()
+                        (interactive)
+                        (if (and (buffer-modified-p)
+                                 (not (eq 'dired-mode major-mode)))
+                            (error "Buffer has unsaved changes")
+                          (kill-buffer (current-buffer)))))
+   (global-set-key [f6] 'neotree-project-dir)
+   (global-set-key [f8] 'neotree-toggle)
+   (global-set-key [f7] 'neotree-find)
+   (global-set-key [f9] 'toggle-truncate-lines)
  #+END_SRC
