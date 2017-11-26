@@ -4,3 +4,4 @@ emacs.d/*.el*
 *.el
 .aliases
 .local_config
+*.retry
