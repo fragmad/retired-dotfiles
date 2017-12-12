@@ -110,7 +110,6 @@ Snippit taken from here: [[https://emacs.stackexchange.com/questions/24563/evil-
 
 #+END_SRC
 
-
 * Utility Functions
 
 expand-region.el is an incredibly useful package. Let's use it!
@@ -504,7 +503,6 @@ Work better with Neotree
 (add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
 #+END_SRC
 
-
 * Terminal
 
  =multi-term= works well for managing shell sessions.
@@ -532,7 +530,7 @@ Work better with Neotree
  Make tab behave if it was in the languages major mode.
 
  #+BEGIN_SRC emacs-lisp
- (setq org-src-tab-acts-natively t)
+; (setq org-src-tab-acts-natively t)
  #+END_SRC
 
 ** Task Management
@@ -650,14 +648,15 @@ Work better with Neotree
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((emacs-lisp . t)
-     (ruby . t)
-     (python . t)))
+  ; (org-babel-do-load-languages
+  ;  'org-babel-load-languages
+  ;  '((emacs-lisp . t)
+  ;    (ruby . t)
+  ;    (python . t)
+  ;    (clojure . t)))
 #+END_SRC
 
- *** Exporting to HTML
+*** Exporting to HTML
 
  Don't include the footer with my details.
 
@@ -669,20 +668,6 @@ Work better with Neotree
  * =dired=
 
  Nothing here yet.
-
-* ERC
-
-I am experimenting with using IRC as a composition tool. The logs need to be saved somewhere.
-
-#+BEGIN_SRC emacs-lisp
-(erc-log-mode)
-(setq erc-log-channels-directory "~/Dropbox/Writing/Irssi_Logs/")
-(setq erc-generate-log-file-name-function (quote erc-generate-log-file-name-with-date))
-(setq erc-save-buffer-on-part nil)
-(setq erc-save-queries-on-quit nil)
-(setq erc-log-write-after-insert t)
-(setq erc-log-write-after-send t)
-#+END_SRC
 
 * Editing
 
@@ -743,6 +728,7 @@ Certain modes require visual-line-mode.
 #+BEGIN_SRC emacs-lisp
   (add-hook 'markdown-mode-hook (lambda () (visual-line-mode t)))
   (add-hook 'text-mode-hook (lambda () (visual-line-mode t)))
+  (add-hook 'org-mode-hook (lambda () (visual-line-mode t)))
 #+END_SRC
 
 ** Backups
