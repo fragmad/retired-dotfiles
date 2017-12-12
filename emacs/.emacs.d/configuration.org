@@ -203,6 +203,16 @@ i'd like to use the powerline theme. other themes are available. :)
 (sml/setup)
 #+end_src
 
+Smart Mode Line uses rich minority mode to manage the minor modes which are visible. Let's try to remove everything from that.
+
+#+BEGIN_SRC emacs-lisp
+(setq rm-blacklist
+      (format "^ \\(%s\\)$"
+       (mapconcat #'identity
+                  '("Fly.*" "Projectile.*" "PgLn" "Undo-Tree" "Helm" "ARev")
+                         "\\|")))
+#+END_SRC
+
 ** highlight the current line
 
 this makes it easier to find the cursor
@@ -528,17 +538,17 @@ Work better with Neotree
 ** Task Management
  #+BEGIN_SRC emacs-lisp
 
- (setq org-directory "~/Dropbox/org")
+   (setq org-directory "~/ownCloud/org")
 
- (defun org-file-path (filename)
-   "Return the absolute address of an org file, given its relative name."
-   (concat (file-name-as-directory org-directory) filename))
+   (defun org-file-path (filename)
+     "Return the absolute address of an org file, given its relative name."
+     (concat (file-name-as-directory org-directory) filename))
 
- (setq org-index-file (org-file-path "index.org"))
- (setq org-scrapbook-file (org-file-path "scrapbook.org"))
+   (setq org-index-file (org-file-path "index.org"))
+   (setq org-scrapbook-file (org-file-path "scrapbook.org"))
 
- (setq org-archive-location
-       (concat (org-file-path "archive.org") "::* From %s"))
+   (setq org-archive-location
+         (concat (org-file-path "archive.org") "::* From %s"))
  #+END_SRC
 
  #+RESULTS:
