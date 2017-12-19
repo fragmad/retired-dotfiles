@@ -1,5 +1,7 @@
 work: work-monitors set-us-layout set-no-caps
 
+home: home-monitor set-uk-layout set-no-caps 
+
 set-us-layout: 
 	setxkbmap en_US
 
@@ -7,13 +9,19 @@ set-uk-layout:
 	setxkbmap gb 
 
 suspend-laptop:
-	sudo -v;gnome-screensaver-command --lock;sleep 3;sudo pm-suspend
+	sudo -v;make laptop-monitor; gnome-screensaver-command --lock;sleep 3;sudo pm-suspend
 
 hibernate-laptop:
-	sudo -v;gnome-screensaver-command --lock;sleep 3;sudo pm-hibernate
+	sudo -v;make laptop-monitor; gnome-screensaver-command --lock;sleep 3;sudo pm-hibernate
 
 work-monitors:
 	./.screenlayout/default_layout.sh
+
+home-monitor: 
+	~/.screenlayout/home.sh
+
+laptop-monitor: 
+	~/.screenlayout/laptop.sh
 
 set-no-caps:
 	setxkbmap -option ctrl:nocaps

@@ -40,6 +40,9 @@ bindsym $mod+x exec --no-startup-id rofi -show window
 # installed.
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
+# This allegedly removes the title bar from frames, which is a personal annoyance of mine.
+new_window none
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
