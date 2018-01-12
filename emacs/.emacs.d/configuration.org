@@ -642,8 +642,8 @@ Work better with Neotree
 
 #+BEGIN_SRC emacs-lisp
 
-;(require 'ox-md)
-;(require 'ox-beamer)
+(require 'ox-md)
+(require 'ox-beamer)
 
 #+END_SRC
 
@@ -656,6 +656,18 @@ Work better with Neotree
   ;    (clojure . t)))
 #+END_SRC
 
+I'd like to be able to have slightly more modern looking articles printed in \LaTeX.
+
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load "ox-latex"
+  (add-to-list 'org-latex-classes
+               '("koma-article" "\\documentclass{scrartcl}"
+                 ("\\section{%s}" . "\\section*{%s}")
+                 ("\\subsection{%s}" . "\\subsection*{%s}")
+                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+#+END_SRC
 *** Exporting to HTML
 
  Don't include the footer with my details.
@@ -665,7 +677,7 @@ Work better with Neotree
  #+END_SRC
 
 
- * =dired=
+* =dired=
 
  Nothing here yet.
 
