@@ -183,7 +183,7 @@ A smorgasbord of themes to choose from.
 (load-theme 'dracula t)
 #+end_src
 
-** set the font
+** Set the font
 
 #+begin_src emacs-lisp
 (add-to-list 'default-frame-alist '(font . "Hack" ))
@@ -212,7 +212,7 @@ Smart Mode Line uses rich minority mode to manage the minor modes which are visi
                          "\\|")))
 #+END_SRC
 
-** highlight the current line
+** Highlight the current line
 
 this makes it easier to find the cursor
 
@@ -221,38 +221,21 @@ this makes it easier to find the cursor
 (global-hl-line-mode))
 #+end_src
 
-** nyan mode
+** Nyan mode
 start nyan-mode. :)
 
 #+begin_src emacs-lisp
 (nyan-mode 1)
 #+end_src
 
-** wind move keys
-wind move keys are useful in theory. (actually not. disabled for now.)
-
-#+begin_src emacs-lisp
-;(when (fboundp 'windmove-default-keybindings)
-;  (windmove-default-keybindings))
-#+end_src
-
-provide support for terminals.
-
-#+begin_src emacs-lisp
-;(global-set-key (kbd "C-c <left>")  'windmove-left)
-;(global-set-key (kbd "C-c <right>") 'windmove-right)
-;(global-set-key (kbd "C-c <up>")    'windmove-up)
-;(global-set-key (kbd "C-c <down>")  'windmove-down)
-#+end_src
-
-** highlight uncommitted changes
+** Highlight uncommitted changes
 #+begin_src emacs-lisp
 ;(require 'diff-hl)
 ;(add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
 ;(add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
 #+end_src
 
-** mac os x specifics
+** Mac os x specifics
 
 first we need to know if we are using a mac
 
@@ -269,6 +252,12 @@ i like to be able to use the command key as a meta key when using my macbook air
        (setq ns-command-modifier 'meta)
        (setq ns-right-alternative-modifier (quote none)))
 #+end_src
+
+** Enabled column number mode
+
+#+BEGIN_SRC emacs-lisp
+(column-number-mode)
+#+END_SRC
 
 * Helm
 
