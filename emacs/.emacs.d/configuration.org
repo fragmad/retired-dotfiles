@@ -341,6 +341,12 @@ Treat CamelCase symbols as separate words to make editing easier.
 ; (linum-relative-global-mode)
 #+END_SRC
 
+** Markdown
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'markdown-mode-hook 'flyspell-mode)
+#+END_SRC
+
 ** Go
 
 Define the ``$GOPATH`` and point emacs at Go binaries.
@@ -522,6 +528,10 @@ Work better with Neotree
 ; (setq org-src-tab-acts-natively t)
  #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook 'flyspell-mode)
+
+#+END_SRC
 ** Task Management
  #+BEGIN_SRC emacs-lisp
 
