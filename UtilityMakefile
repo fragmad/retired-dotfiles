@@ -1,12 +1,12 @@
 work: work-monitors set-us-layout set-no-caps
 
-home: home-monitor set-uk-layout set-no-caps 
+home: home-monitor set-uk-layout set-no-caps
 
-set-us-layout: 
+set-us-layout:
 	setxkbmap en_US
 
-set-uk-layout: 
-	setxkbmap gb 
+set-uk-layout:
+	setxkbmap gb
 
 suspend-laptop:
 	sudo -v;make laptop-monitor; gnome-screensaver-command --lock;sleep 3;sudo pm-suspend
@@ -17,10 +17,10 @@ hibernate-laptop:
 work-monitors:
 	./.screenlayout/default_layout.sh
 
-home-monitor: 
+home-monitor:
 	~/.screenlayout/home.sh
 
-laptop-monitor: 
+laptop-monitor:
 	~/.screenlayout/laptop.sh
 
 set-no-caps:
@@ -32,5 +32,26 @@ write-ten:
 show-inputs:
 	xinput list
 
-show-disable-commands: 
+show-disable-commands:
 	echo "xinput --disable 12";
+
+pomodoro-work:
+	date; sleep 25m; notify-send -u critical "TAKE A BREAK!"
+
+pomodoro-short-break:
+	date; sleep 5m; notify-send -u critical "BACK TO WORK SCUMBAG!"
+
+pomo-start:
+	pomo.sh start; pomo.sh notify &
+
+pomo-time:
+	pomo.sh clock;
+
+pomo-stop:
+	pomo.sh stop;
+
+pomo-pause:
+	pomo.sh pause;
+
+pomo-unpause:
+	pomo.sh pause;
