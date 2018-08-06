@@ -300,6 +300,18 @@
    (setq org-agenda-files (list org-index-file))
  #+END_SRC
 
+** Keywords for TODOs
+
+#+BEGIN_SRC emacs-lisp
+(setq org-todo-keywords '((sequence "TODO(t)" "IN PROGRESS(p)" "NEXT(n)" "WAITING(w!)" "|" "DONE(d!)" "CANCELLED(c!)")))
+#+END_SRC
+
+** Colour TODO keywords
+
+#+BEGIN_SRC emacs-lisp
+(setq org-todo-keyword-faces
+ '(("WAITING" . "green") ("CANCELED" . "darkred") ("NEXT" . "orange")))
+#+END_SRC
 ** Exporting
 #+BEGIN_SRC emacs-lisp
   ;; (use-package ox-reveal)
