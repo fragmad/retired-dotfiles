@@ -16,16 +16,16 @@
 * Package Management
 
 #+BEGIN_SRC emacs-lisp
-(load "package")
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-;(add-to-list 'package-archives
-;             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives
-             '("org" . "http://orgmode.org/elpa/") t)
-(package-initialize)
+  (load "package")
+  (add-to-list 'package-archives
+               '("marmalade" . "http://marmalade-repo.org/packages/") t)
+  ;; (add-to-list 'package-archives
+  ;;              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+  (add-to-list 'package-archives
+               '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (add-to-list 'package-archives
+               '("org" . "http://orgmode.org/elpa/") t)
+  (package-initialize)
 #+END_SRC
 
 * Set up Use Package
@@ -54,10 +54,9 @@
 * Powerline
 
 #+BEGIN_SRC emacs-lisp
-
-;(use-package powerline
-;  (use-pack :ensure t
-;  :config (powerline-center-theme)))
+  (use-package powerline
+   :ensure t
+   :config (powerline-center-theme))
 #+END_SRC
 
 * Sane Defaults
@@ -78,6 +77,20 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
+*** Line Numbers 
+
+#+BEGIN_SRC emacs-lisp
+(global-linum-mode 1)
+(setq linum-format " %4d ")
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package hlinum
+  :ensure t)
+(set-face-foreground 'linum-highlight-face "white")
+(set-face-background 'linum-highlight-face nil)
+(hlinum-activate)
+#+END_SRC
 *** Show line and column in the mode-line
 
 #+BEGIN_SRC emacs-lisp
@@ -97,13 +110,13 @@
 ** Store all backkup and autosave files in the tmp dir
 
 #+BEGIN_SRC emacs-lisp
-(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
-(setq backup-directory-alist
-    `((".*" . ,emacs-tmp-dir)))
-(setq auto-save-file-name-transforms
-    `((".*" ,emacs-tmp-dir t)))
-(setq auto-save-list-file-prefix
-    emacs-tmp-dir)
+;(defconst emacs-tmp-dir (expand-file-name (format "emacs%d" (user-uid)) temporary-file-directory))
+;(setq backup-directory-alist
+;    `((".*" . ,emacs-tmp-dir)))
+;(setq auto-save-file-name-transforms
+;    `((".*" ,emacs-tmp-dir t)))
+;(setq auto-save-list-file-prefix
+;    emacs-tmp-dir)
 #+END_SRC
 
 * Editing
@@ -218,18 +231,18 @@
 
 ** TODO Evil Leader keybindings
 
-#+BEGIN_SRC emacs-lisp
-(evil-leader/set-leader "<SPC>")
-(evil-leader/set-key
-  "a" 'ace-jump-mode
-  "f" 'helm-projectile-find-file
-  "F" 'helm-projectile-ag
-  "q" 'evil-quit
-  "w" 'save-buffer
-  "t" 'neotree-toggle
-  "e" 'emojify-insert-emoji
-  "g" 'magit)
-#+END_SRC
+ #+BEGIN_SRC emacs-lisp
+ (evil-leader/set-leader "<SPC>")
+ (evil-leader/set-key
+   "a" 'ace-jump-mode
+   "f" 'helm-projectile-find-file
+   "F" 'helm-projectile-ag
+   "q" 'evil-quit
+   "w" 'save-buffer
+   "t" 'neotree-toggle
+   "e" 'emojify-insert-emoji
+   "g" 'magit)
+ #+END_SRC
 
 ** Evil Leader org keybindings
 
@@ -246,28 +259,53 @@
 
 ** Cursor changer
 #+BEGIN_SRC emacs-lisp
-(use-package evil-terminal-cursor-changer
-:ensure t
-:init
-(setq evil-motion-state-cursor 'box)  ; █
-(setq evil-visual-state-cursor 'box)  ; █
-(setq evil-normal-state-cursor 'box)  ; █
-(setq evil-insert-state-cursor 'bar)  ; ⎸
-(setq evil-emacs-state-cursor  'hbar) ; _
-:config
-(evil-terminal-cursor-changer-activate))
+;(use-package evil-terminal-cursor-changer
+;:ensure t
+;:init
+;(setq evil-motion-state-cursor 'box)  ; █
+;(setq evil-visual-state-cursor 'box)  ; █
+;(setq evil-normal-state-cursor 'box)  ; █
+;(setq evil-insert-state-cursor 'bar)  ; ⎸
+;(setq evil-emacs-state-cursor  'hbar) ; _
+;:config
+;(evil-terminal-cursor-changer-activate))
 #+END_SRC
 
 * Org-mode
 
-** Explictly Use Org
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook 'flyspell-mode)
+#+END_SRC
 
+** Task Management
+ #+BEGIN_SRC emacs-lisp
+
+   (setq org-directory "~/ownCloud/org")
+
+   (defun org-file-path (filename)
+     "Return the absolute address of an org file, given its relative name."
+     (concat (file-name-as-directory org-directory) filename))
+
+   (setq org-index-file (org-file-path "index.org"))
+   (setq org-scrapbook-file (org-file-path "scrapbook.org"))
+
+   (setq org-archive-location
+         (concat (org-file-path "archive.org") "::* From %s"))
+ #+END_SRC
+
+ I store all my todos in =~/ownCloud/org/index.org=, so I'd like to derive my agenda from
+ there.
+
+ #+BEGIN_SRC emacs-lisp
+   (setq org-agenda-files (list org-index-file))
+ #+END_SRC
 
 ** Exporting
 #+BEGIN_SRC emacs-lisp
-(require 'ox-md)
-(require 'ox-beamer)
-(require 'ox-reveal)
+  ;; (use-package ox-reveal)
+  (require 'ox-md)
+  (require 'ox-beamer)
+  ;; (require 'ox-reveal)
 #+END_SRC
 
 I'd like to be able to have slightly more modern looking articles printed in \LaTeX.
@@ -282,6 +320,38 @@ I'd like to be able to have slightly more modern looking articles printed in \La
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
 #+END_SRC
+
+** Keys 
+
+
+ #+BEGIN_SRC emacs-lisp
+   (define-key global-map "\C-cl" 'org-store-link)
+   (define-key global-map "\C-ca" 'org-agenda)
+   (define-key global-map "\C-cc" 'org-capture)
+ #+END_SRC
+
+ Hit =C-c i= to quickly open up my todo list.
+
+ #+BEGIN_SRC emacs-lisp
+   (defun open-index-file ()
+     "Open the master org TODO list."
+     (interactive)
+     (find-file org-index-file)
+     (flycheck-mode -1)
+     (end-of-buffer))
+
+   (global-set-key (kbd "C-c i") 'open-index-file)
+ #+END_SRC
+
+ Hit =M-n= to quickly open up a capture template for a new todo.
+
+ #+BEGIN_SRC emacs-lisp
+   (defun org-capture-todo ()
+     (interactive)
+     (org-capture :keys "t"))
+
+   (global-set-key (kbd "M-n") 'org-capture-todo)
+ #+END_SRC
 
 * Markdown Mode
 #+BEGIN_SRC emacs-lisp
@@ -354,6 +424,12 @@ I'd like to be able to have slightly more modern looking articles printed in \La
 (use-package magit :ensure t)
 #+END_SRC
 
+* Evil-magit
+
+#+BEGIN_SRC emacs-lisp
+(use-package evil-magit :ensure t)
+#+END_SRC
+
 * Language-specific
 
 ** Web languages
@@ -399,6 +475,11 @@ I'd like to be able to have slightly more modern looking articles printed in \La
 (use-package php-mode :ensure t)
 #+END_SRC
 
+** Ruby
+
+#+BEGIN_SRC emacs-lisp
+(use-package ruby-mode :ensure t)
+#+END_SRC
 
 ** Flycheck
 
@@ -427,4 +508,8 @@ acejump-mode also looks really good. Let's start using it.
 ;(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 (define-key global-map [f6] 'ace-jump-mode)
 (define-key global-map (kbd "C-c C-SPC") 'ace-jump-mode)
+#+END_SRC 
+
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 #+END_SRC
