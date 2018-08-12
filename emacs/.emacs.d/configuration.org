@@ -307,6 +307,8 @@ When editing code, use the current window.
 
    (setq org-index-file (org-file-path "index.org"))
    (setq org-scrapbook-file (org-file-path "scrapbook.org"))
+   (setq org-food-file (org-file-path "food.org"))
+
 
    ;; Special Projects With Their Own Codenames
    (setq org-electrode-project (org-file-path "./projects/electrode_todo.org"))
@@ -326,9 +328,19 @@ When editing code, use the current window.
 
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
-        '(("r" ""
+        '(("e" "electrode"
            entry
-           (file (org-file-path "recipes.org"))
+           (file+headline org-electrode-project "Electrode")
+           "* TODO %?\n")
+
+          ("r" "recipes"
+           entry
+           (file+headline org-food-file "Recipes")
+           "* %?\n")
+
+          ("f" "Food & Drink Venue"
+           entry
+           (file+headline org-food-file "Food & Drink Venues")
            "* %?\n")
 
           ("t" "Todo"
