@@ -275,6 +275,27 @@
 (add-hook 'org-mode-hook 'flyspell-mode)
 #+END_SRC
 
+** Display preferences
+
+Use syntax highlighting in source blocks while editing. 
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+#+END_SRC
+
+Make TAB act as if it were issued in a buffer of the language's major mode. 
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-tab-acts-natively t)
+#+END_SRC
+
+When editing code, use the current window.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-window-setup 'current-window)
+#+END_SRC
+
+
 ** Task Management
  #+BEGIN_SRC emacs-lisp
 
@@ -287,16 +308,34 @@
    (setq org-index-file (org-file-path "index.org"))
    (setq org-scrapbook-file (org-file-path "scrapbook.org"))
 
+   ;; Special Projects With Their Own Codenames
+   (setq org-electrode-project (org-file-path "./projects/electrode_todo.org"))
+
    (setq org-archive-location
          (concat (org-file-path "archive.org") "::* From %s"))
  #+END_SRC
 
  I store all my todos in =~/ownCloud/org/index.org=, so I'd like to derive my agenda from
- there.
+ there, but also from the project specific files stored in =./projects/=
 
  #+BEGIN_SRC emacs-lisp
-   (setq org-agenda-files (list org-index-file))
+   (setq org-agenda-files (list org-index-file org-electrode-project))
  #+END_SRC
+
+** Capturing Tasks 
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-capture-templates
+        '(("r" ""
+           entry
+           (file (org-file-path "recipes.org"))
+           "* %?\n")
+
+          ("t" "Todo"
+           entry
+           (file+headline org-index-file "Inbox")
+           "* TODO %?\n")))
+#+END_SRC   
 
 ** Keywords for TODOs
 
@@ -414,7 +453,7 @@ I'd like to be able to have slightly more modern looking articles printed in \La
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-(define-key company-mode-map (kbd "TAB") 'company-complete)
+   (define-key company-mode-map (kbd "TAB") 'company-complete)
 #+END_SRC
 
 ** Rainbow delimiters
