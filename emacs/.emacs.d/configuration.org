@@ -574,3 +574,14 @@ acejump-mode also looks really good. Let's start using it.
 #+BEGIN_SRC emacs-lisp
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
 #+END_SRC
+
+* RSS Feeds
+
+I'm trying out elfeed, so let's add some feeds. 
+
+#+BEGIN_SRC emacs-lisp
+(setq elfeed-feeds
+  '("http://will-ellwood.com/index.xml"
+    "https://jvns.ca/atom.xml"
+    "https://harryrschwartz.com/atom.xml"))
+#+END_SRC
