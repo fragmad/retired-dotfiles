@@ -239,6 +239,7 @@
    "w" 'save-buffer
    "t" 'neotree-toggle
    "e" 'emojify-insert-emoji
+   "r" 'elfeed
    "g" 'magit)
  #+END_SRC
 
@@ -584,4 +585,21 @@ I'm trying out elfeed, so let's add some feeds.
   '("http://will-ellwood.com/index.xml"
     "https://jvns.ca/atom.xml"
     "https://harryrschwartz.com/atom.xml"))
+#+END_SRC
+
+And let's make it play nicely with =evil-mode=
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+(add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
+
+(evil-define-key* 'motion elfeed-search-mode-map
+                  "gb" #'elfeed-search-browse-url
+                  "gr" #'elfeed-search-update--force
+                  "gR" #'elfeed-search-fetch)
+
+(evil-define-key* 'motion elfeed-show-mode-map
+                  "gb" #'elfeed-show-visit
+                  "gj" #'elfeed-show-next
+                  "gk" #'elfeed-show-prev)
 #+END_SRC
