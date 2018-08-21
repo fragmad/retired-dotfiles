@@ -195,3 +195,6 @@ exec setxkbmap -option ctrl:nocaps
 
 #exec killall -q <notification daemon>
 exec --no-startup-id dunst -config ~/dunstrc
+
+# Pomodoro start and end notifications
+bindsym $mod+Control+p exec notify-send --icon=gtk-info Pomodoro "Focus for 25 minutes" && sleep 2500 && notify-send --icon=gtk-info Pomodoro "Take a 5 minute break"

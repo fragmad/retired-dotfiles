@@ -26,8 +26,11 @@ laptop-monitor:
 set-no-caps:
 	setxkbmap -option ctrl:nocaps
 
-write-ten:
-	date; sleep 10m; notify-send -u critical "STOP WRITING"
+work-ten:
+	date; sleep 10m; notify-send -u critical "STOP WORK!"
+
+pause-two:
+	date; sleep 2m; notify-send -u critical "START WORK!"
 
 show-inputs:
 	xinput list
