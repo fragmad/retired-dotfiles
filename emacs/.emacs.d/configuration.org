@@ -325,7 +325,7 @@ When editing code, use the current window.
    (setq org-agenda-files (list org-index-file org-electrode-project))
  #+END_SRC
 
-** Capturing Tasks 
+** Capturing Tasks / Notes
 
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates
@@ -466,7 +466,12 @@ I'd like to be able to have slightly more modern looking articles printed in \La
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-   (define-key company-mode-map (kbd "TAB") 'company-complete)
+  (defun indent-or-complete ()
+    (interactive)
+    (if (looking-at "\\_>")
+        (company-complete-common)
+      (indent-according-to-mode)))
+;   (define-key company-mode-map (kbd "TAB") 'company-complete)
 #+END_SRC
 
 ** Rainbow delimiters
