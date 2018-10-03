@@ -608,3 +608,21 @@ And let's make it play nicely with =evil-mode=
                   "gj" #'elfeed-show-next
                   "gk" #'elfeed-show-prev)
 #+END_SRC
+* Writing Mode 
+
+These settings mimic iA Writer and we found in this blog post: https://azer.bike/journal/ia-writer-mode-for-emacs/
+
+#+BEGIN_SRC emacs-lisp
+(defun writing-mode ()
+  (interactive)
+  (setq buffer-face-mode-face '(:family "dejavu sans mono" :height 150))
+  (buffer-face-mode)
+  (linum-mode 0)
+  (writeroom-mode 1)
+  (blink-cursor-mode)
+  (visual-line-mode 1)
+  (setq truncate-lines nil)
+  (setq-default line-spacing 5)
+  (setq global-hl-line-mode nil)
+  )
+#+END_SRC
