@@ -1,1 +1,2 @@
-sxhkd -f 100 & exec bspwm
+#sxhkd -f 100 & exec bspwm
+exec awesome
