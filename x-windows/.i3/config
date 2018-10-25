@@ -200,3 +200,12 @@ exec --no-startup-id dunst -config ~/dunstrc
 
 # Pomodoro start and end notifications
 bindsym $mod+Control+p exec notify-send --icon=gtk-info Pomodoro "Focus for 25 minutes" && sleep 2500 && notify-send --icon=gtk-info Pomodoro "Take a 5 minute break"
+
+# Launch applications
+
+# exec --no-startup-id i3-msg 'workspace 2; exec i3-sensible-terminal'
+# exec --no-startup-id i3-msg 'workspace 1; exec emacs'
+# exec --no-startup-id i3-msg 'workspace 3; exec google-chrome'
+# exec --no-startup-id i3-msg 'workspace 9; exec spotify'
+# exec --no-startup-id i3-msg 'worksapce 0; exec slack'
+# exec --no-startup-id i3-msg 'worksapce 0; exec hexchat'
