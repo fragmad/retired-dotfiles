@@ -24,7 +24,8 @@ font pango:DejaVu Sans Mono 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec urxvt
 #bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
@@ -43,6 +44,9 @@ bindsym $mod+x exec --no-startup-id rofi -show window
 
 # This allegedly removes the title bar from frames, which is a personal annoyance of mine.
 new_window none
+
+# Attempt to configure monitor layout
+exec ~/dotfiles/bin/set_screens.sh
 
 # change focus
 bindsym $mod+j focus left
@@ -164,7 +168,15 @@ bar {
 
 #exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+workspace 1 output DP1-1
+workspace 2 output DP1-2
+workspace 3 output DP1-2
+workspace 4 output DP1-2
+workspace 9 output DP1-2
+
 exec_always xmodmap ~/.xmodmap
+
+exec setxkbmap -option ctrl:nocaps
 
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
@@ -179,13 +191,19 @@ bindsym $mod+Shift+comma exec playerctl previous
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
+exec --no-startup-id xbindkeys &
+
+
 # exec --no-startup-id feh --randomize --bg-fill ~/Pictures/100\ Studio\ Ghibli\ wallpapers\ -\ Imgur
 exec --no-startup-id feh --bg-fill ~/dotfiles/wallpaper/coffee-wallpaper.jpg
 
-exec --no-startup-id volumeicon
-exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-exec dropbox start
+exec xrdb -load ~/.Xresources
+
+exec --no-startup-id pasystray &
+exec --no-startup-id volumeicon &
+exec --no-startup-id nm-applet &
+exec --no-startup-id blueman-applet &
+exec --no-startup-id dropbox start
 exec unclutter -idle 1 -noevents &
 
 # Cycle through active workspaces
@@ -200,6 +218,14 @@ exec --no-startup-id dunst -config ~/dunstrc
 
 # Pomodoro start and end notifications
 bindsym $mod+Control+p exec notify-send --icon=gtk-info Pomodoro "Focus for 25 minutes" && sleep 2500 && notify-send --icon=gtk-info Pomodoro "Take a 5 minute break"
+
+exec --no-startup-id emacs --daemon
+
+# Start applications on the correct workspaces
+
+exec --no-startup-id i3-msg 'workspace 1; exec emacs'
+exec --no-startup-id i3-msg 'workspace 2; exec "urxvt"'
+exec --no-startup-id i3-msg 'workspace 9; exec "spotify"'
 
 # Launch applications
 
