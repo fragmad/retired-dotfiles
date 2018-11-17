@@ -25,8 +25,8 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec urxvt
-#bindsym $mod+Return exec gnome-terminal
+#bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -225,7 +225,7 @@ exec --no-startup-id emacs --daemon
 # Start applications on the correct workspaces
 
 exec --no-startup-id i3-msg 'workspace 1; exec emacs'
-exec --no-startup-id i3-msg 'workspace 2; exec "urxvt"'
+exec --no-startup-id i3-msg 'workspace 2; exec "gnome-terminal"'
 exec --no-startup-id i3-msg 'workspace 9; exec "spotify"'
 
 # Launch applications
