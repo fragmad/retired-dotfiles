@@ -576,24 +576,24 @@ I'd like to be able to have slightly more modern looking articles printed in \La
 ** Python
 
 #+BEGIN_SRC emacs-lisp
-(hrs/append-to-path "~/.local/bin")
+  ;; (hrs/append-to-path "~/.local/bin")
 
-(use-package elpy
-:ensure t)
+  ;; (use-package elpy
+  ;; :ensure t)
 
-(elpy-enable)
+  ;; (elpy-enable)
 
-(add-hook 'elpy-mode-hook 'flycheck-mode)
+  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
 
-(use-package py-autopep8
-:ensure t)
-(add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+  ;; (use-package py-autopep8
+  ;; :ensure t)
+  ;; (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
-(add-to-list 'company-backends 'company-jedi)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
+  ;; (add-to-list 'company-backends 'company-jedi)
+  ;; (add-hook 'python-mode-hook 'jedi:setup)
+  ;; (setq jedi:complete-on-dot t)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+  ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
 ** PHP
@@ -644,7 +644,7 @@ These settings mimic iA Writer and we found in this blog post: https://azer.bike
 I'm trying out elfeed, so let's add some feeds.
 
 #+BEGIN_SRC emacs-lisp
-  (use-package elfeed :ensure t)
+;;  (use-package elfeed :ensure t)
   ;; (use-package elfeed-org :ensure t)
 
 #+END_SRC
@@ -660,18 +660,18 @@ Just some basic feeds for me to start following.
 And let's make it play nicely with =evil-mode=
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
-(add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
+;;(add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
+;;(add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
 
-(evil-define-key* 'motion elfeed-search-mode-map
-                  "gb" #'elfeed-search-browse-url
-                  "gr" #'elfeed-search-update--force
-                  "gR" #'elfeed-search-fetch)
-
-(evil-define-key* 'motion elfeed-show-mode-map
-                  "gb" #'elfeed-show-visit
-                  "gj" #'elfeed-show-next
-                  "gk" #'elfeed-show-prev)
+;;(evil-define-key* 'motion elfeed-search-mode-map
+;                  "gb" #'elfeed-search-browse-url
+;                  "gr" #'elfeed-search-update--force
+;                  "gR" #'elfeed-search-fetch)
+;
+;(evil-define-key* 'motion elfeed-show-mode-map
+;                  "gb" #'elfeed-show-visit
+;                  "gj" #'elfeed-show-next
+;                  "gk" #'elfeed-show-prev)
 #+END_SRC
 * Dashboard
 
