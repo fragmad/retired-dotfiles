@@ -649,6 +649,43 @@ To select these use "C-c a".
 (use-package yaml-mode :ensure t)
 #+END_SRC
 
+** Golang
+
+Ensure that go-mode is installed
+
+#+BEGIN_SRC emacs-lisp
+(use-package go-mode
+:ensure t)
+(use-package company-go
+:ensure t)
+#+END_SRC
+
+Run =gofmt= before save.
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'before-save-hook 'gofmt-before-save)
+#+END_SRC
+
+When opening a Go file,
+
+- Start up =company-mode with the Go abckend.
+- Redefine the default =compile= command to something Go-specific, and
+- Enable =flycheck=.
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (set (make-local-variable 'company-backends)
+                   '(company-go))
+              (company-mode)
+              (if (not (string-match "go" compile-command))
+                  (setq explicit-shell-file-name "/bin/bash")
+                  (set (make-local-variable 'compile-command)
+                       "go build -v && go test -v && go vet"))
+              (flycheck-mode)))
+#+END_SRC
+
+
 ** Rust
 
 #+BEGIN_SRC emacs-lisp
