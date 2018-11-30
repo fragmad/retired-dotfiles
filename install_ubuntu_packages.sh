@@ -7,6 +7,7 @@ sudo apt install \
      build-essential \
      curl \
      feh \
+     fonts-inconsolata
      git \
      gnupg2 \
      graphviz \
@@ -26,6 +27,7 @@ sudo apt install \
      redshift \
      rofi \
      rxvt-unicode \
+     silversearcher-ag \
      stow \
      sudo \
      texlive-base \

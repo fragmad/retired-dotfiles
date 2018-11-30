@@ -96,9 +96,9 @@ This is happily taken from Harry Schwartz Emacs configuration file.
 
 * Sane Defaults
 
-** Interface
+* Interface
 
-*** Turn off UI elements
+** Turn off UI elements
 
 #+BEGIN_SRC emacs-lisp
 (menu-bar-mode -1)
@@ -106,13 +106,13 @@ This is happily taken from Harry Schwartz Emacs configuration file.
 (tool-bar-mode 0)
 #+END_SRC
 
-*** Say y or n instead of yes or no
+** Say y or n instead of yes or no
 
 #+BEGIN_SRC emacs-lisp
 (defalias 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
 
-*** Line Numbers
+** Line Numbers
 
 #+BEGIN_SRC emacs-lisp
 (global-linum-mode 1)
@@ -124,20 +124,33 @@ This is happily taken from Harry Schwartz Emacs configuration file.
     (global-hl-line-mode))
 #+END_SRC
 
-*** Show line and column in the mode-line
+** Show line and column in the mode-line
 
 #+BEGIN_SRC emacs-lisp
 (line-number-mode 1)
 (column-number-mode 1)
 #+END_SRC
 
-*** Reduce startup screen noise
+** Reduce startup screen noise
 
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 (setq initial-scratch-message nil)
 #+END_SRC
 
+** Set default font
+
+#+BEGIN_SRC emacs-lisp
+(setq wme/default-font "Inconsolata")
+(setq wme/default-font-size 10)
+
+(add-to-list 'default-frame-alist '(font . wme/default-font))
+(set-face-attribute 'default t :font wme/default-font)
+
+(set-face-attribute 'default nil :font wme/default-font)
+(set-frame-font wme/default-font nil t)
+
+#+END_SRC
 * Initialisation
 
 ** Store all backkup and autosave files in the tmp dir
@@ -359,40 +372,41 @@ When editing code, use the current window.
 
    (setq org-archive-location
          (concat (org-file-path "archive.org") "::* From %s"))
+
+   ;; GTD files
+   (setq org-inbox (org-file-path "index.org"))
+   (setq org-gtd (org-file-path "gtd.org"))
+   (setq org-tickler (org-file-path "tickler.org"))
+   (setq org-someday (org-file-path "someday.org"))
+
  #+END_SRC
 
  I store all my todos in =~/ownCloud/org/index.org=, so I'd like to derive my agenda from
  there, but also from the project specific files stored in =./projects/=
 
  #+BEGIN_SRC emacs-lisp
-   (setq org-agenda-files (list org-index-file org-electrode-project))
+;   (setq org-agenda-files (list org-index-file org-electrode-project))
+   (setq org-agenda-files (list org-inbox org-gtd org-tickler))
+
  #+END_SRC
 
 ** Capturing Tasks / Notes
 
 #+BEGIN_SRC emacs-lisp
-  (setq org-capture-templates
-        '(("e" "electrode"
-           entry
-           (file+headline org-electrode-project "Electrode")
-           "* TODO %?\n")
+  (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                                 (file+headline org-inbox "Tasks")
+                                 "* TODO %i%?")
+                                ("T" "Tickler" entry
+                                 (file+headline org-tickler "Tickler")
+                                 "* %i%? \n %U")))
 
-          ("r" "recipes"
-           entry
-           (file+headline org-food-file "Recipes")
-           "* %?\n")
-
-          ("f" "Food & Drink Venue"
-           entry
-           (file+headline org-food-file "Food & Drink Venues")
-           "* %?\n")
-
-          ("t" "Todo"
-           entry
-           (file+headline org-index-file "Inbox")
-           "* TODO %?\n")))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (setq org-refile-targets '(("~/ownCloud/org/gtd.org" :maxlevel . 3)
+                             ("~/ownCloud/org/someday.org" :level . 1)
+                             ("~/ownCloud/org/tickler.org" :maxlevel . 2)))
+#+END_SRC
 ** Keywords for to-do Items
 
 #+BEGIN_SRC emacs-lisp
@@ -424,6 +438,36 @@ I'd like to be able to have slightly more modern looking articles printed in \La
                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))))
+#+END_SRC
+
+** Custom Agendas
+
+To select these use "C-c a".
+
+#+BEGIN_SRC emacs-lisp
+  (setq org-agenda-custom-commands
+        '(("o" "At the office" tags-todo "@office"
+           ((org-agenda-overriding-header "Office")
+            (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first)))))
+          ;; (("w" "Writing Tasks" tags-todo "@writing"
+          ;;  ((org-agenda-overriding-header "Writing")
+          ;;   (org-agenda-skip-function #'my-org-agenda-skip-all-siblings-but-first))))))
+
+  (defun my-org-agenda-skip-all-siblings-but-first ()
+    "Skip all but the first non-done entry."
+    (let (should-skip-entry)
+      (unless (org-current-is-todo)
+        (setq should-skip-entry t))
+      (save-excursion
+        (while (and (not should-skip-entry) (org-goto-sibling t))
+          (when (org-current-is-todo)
+            (setq should-skip-entry t))))
+      (when should-skip-entry
+        (or (outline-next-heading)
+            (goto-char (point-max))))))
+
+  (defun org-current-is-todo ()
+    (string= "TODO" (org-get-todo-state)))
 #+END_SRC
 
 ** Keys
@@ -634,6 +678,7 @@ These settings mimic iA Writer and we found in this blog post: https://azer.bike
   (blink-cursor-mode)
   (flyspell-mode 1)
   (visual-line-mode 1)
+  (electric-pair-mode 0)
   (setq truncate-lines nil)
   (setq-default line-spacing 5)
   (setq global-hl-line-mode nil))
