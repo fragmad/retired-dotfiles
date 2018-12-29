@@ -44,3 +44,10 @@ sudo apt install \
      w3m \
      xbindkeys \
      zathura
+
+pip install jedi \
+    autopep8 \
+    flake8 \
+    ipython \
+    importmagic \
+    yapf \

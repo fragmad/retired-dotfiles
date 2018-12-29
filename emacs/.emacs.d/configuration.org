@@ -433,7 +433,7 @@ When editing code, use the current window.
                                  "* TODO %i%?")
                                 ("T" "Tickler" entry
                                  (file+headline org-tickler "Tickler")
-                                 "* %i%? \n %U")))
+                                 "* TODO %i%? \n %T")))
 
 #+END_SRC
 
@@ -695,24 +695,27 @@ When opening a Go file,
 ** Python
 
 #+BEGIN_SRC emacs-lisp
-  ;; (hrs/append-to-path "~/.local/bin")
+  (hrs/append-to-path "~/.local/bin")
 
-  ;; (use-package elpy
-  ;; :ensure t)
+  (use-package elpy
+  :ensure t)
 
-  ;; (elpy-enable)
+  (use-package jedi
+  :ensure t)
 
-  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
+  (elpy-enable)
 
-  ;; (use-package py-autopep8
-  ;; :ensure t)
-  ;; (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+  (add-hook 'elpy-mode-hook 'flycheck-mode)
 
-  ;; (add-to-list 'company-backends 'company-jedi)
-  ;; (add-hook 'python-mode-hook 'jedi:setup)
-  ;; (setq jedi:complete-on-dot t)
+  (use-package py-autopep8
+  :ensure t)
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
-  ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (add-to-list 'company-backends 'company-jedi)
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
+
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
 ** PHP
