@@ -96,6 +96,9 @@ This is happily taken from Harry Schwartz Emacs configuration file.
 
 * Sane Defaults
 
+#+BEGIN_SRC emacs-lisp
+'(shell-file-name "/bin/bash")
+#+END_SRC
 * Interface
 
 ** Turn off UI elements
