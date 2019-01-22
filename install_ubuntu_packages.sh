@@ -7,7 +7,7 @@ sudo apt install \
      build-essential \
      curl \
      feh \
-     fonts-inconsolata
+     fonts-inconsolata \
      git \
      gnupg2 \
      graphviz \
@@ -16,7 +16,6 @@ sudo apt install \
      imagemagick \
      isync \
      make \
-     # nm-applet \
      pandoc \
      pass \
      pasystray \
@@ -40,7 +39,9 @@ sudo apt install \
      urlscan \
      urlview \
      vim \
-     # volumeicon \
      w3m \
      xbindkeys \
      zathura
+
+     # nm-applet \
+     # volumeicon \
