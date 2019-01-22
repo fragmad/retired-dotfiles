@@ -42,6 +42,12 @@ sudo apt install \
      w3m \
      xbindkeys \
      zathura
-
      # nm-applet \
      # volumeicon \
+
+pip install jedi \
+    autopep8 \
+    flake8 \
+    ipython \
+    importmagic \
+    yapf 
