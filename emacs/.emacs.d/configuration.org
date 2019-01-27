@@ -714,25 +714,25 @@ When opening a Go file,
 #+BEGIN_SRC emacs-lisp
   (hrs/append-to-path "~/.local/bin")
 
-  (use-package elpy
-  :ensure t)
+  ;; (use-package elpy
+  ;; :ensure t)
 
-  (use-package jedi
-  :ensure t)
+  ;; (use-package jedi
+  ;; :ensure t)
 
-  (elpy-enable)
+  ;; (elpy-enable)
 
-  (add-hook 'elpy-mode-hook 'flycheck-mode)
+  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
 
-  (use-package py-autopep8
-  :ensure t)
-  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+  ;; (use-package py-autopep8
+  ;; :ensure t)
+  ;; (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
-  (add-to-list 'company-backends 'company-jedi)
-  (add-hook 'python-mode-hook 'jedi:setup)
-  (setq jedi:complete-on-dot t)
+  ;; (add-to-list 'company-backends 'company-jedi)
+  ;; (add-hook 'python-mode-hook 'jedi:setup)
+  ;; (setq jedi:complete-on-dot t)
 
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
 ** PHP
@@ -825,4 +825,9 @@ And let's make it play nicely with =evil-mode=
 
   (global-set-key (kbd "C-c d") 'wme/dashboard)
 
+#+END_SRC
+
+The dashboard should load on start.
+#+BEGIN_SRC
+(wme/dashboard)
 #+END_SRC
