@@ -390,7 +390,6 @@ When editing code, use the current window.
 (setq org-src-window-setup 'current-window)
 #+END_SRC
 
-
 ** Task Management
  #+BEGIN_SRC emacs-lisp
 
@@ -433,7 +432,7 @@ When editing code, use the current window.
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates '(("s" "Standup" entry
                                 (file+headline org-standup "The Daily Stand Up")
-                                 "* Standup - %T - %?\n- What Did I Do Yesterday?\n- What Am Doing Today?\n- What Are My Blockers?\n- What Was the Most Interesting Thing You Learned Yesterday?")
+                                 "* Standup - %T - %?\n- What Did I Do Yesterday?\n- What Am Doing Today?\n- What Are My Blockers?\n- What Was the Most Interesting Thing I Learned Yesterday?")
                                 ("t" "Todo [inbox]" entry
                                  (file+headline org-inbox "Tasks")
                                  "* TODO %i%?")
