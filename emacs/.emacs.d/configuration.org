@@ -144,14 +144,14 @@ This is happily taken from Harry Schwartz Emacs configuration file.
 ** Set default font
 
 #+BEGIN_SRC emacs-lisp
-(setq wme/default-font "Inconsolata")
-(setq wme/default-font-size 10)
+  ;; (setq wme/default-font "Inconsolata")
+  ;; (setq wme/default-font-size 10)
 
-(add-to-list 'default-frame-alist '(font . wme/default-font))
-(set-face-attribute 'default t :font wme/default-font)
+  ;; (add-to-list 'default-frame-alist '(font . wme/default-font))
+  ;; (set-face-attribute 'default t :font wme/default-font)
 
-(set-face-attribute 'default nil :font wme/default-font)
-(set-frame-font wme/default-font nil t)
+  ;; (set-face-attribute 'default nil :font wme/default-font)
+  ;; (set-frame-font wme/default-font nil t)
 
 #+END_SRC
 ** Hide certain modes from the modeline
@@ -713,25 +713,25 @@ When opening a Go file,
 #+BEGIN_SRC emacs-lisp
   (hrs/append-to-path "~/.local/bin")
 
-  ;; (use-package elpy
-  ;; :ensure t)
+  (use-package elpy
+  :ensure t)
 
-  ;; (use-package jedi
-  ;; :ensure t)
+  (use-package jedi
+  :ensure t)
 
-  ;; (elpy-enable)
+  (elpy-enable)
 
-  ;; (add-hook 'elpy-mode-hook 'flycheck-mode)
+  (add-hook 'elpy-mode-hook 'flycheck-mode)
 
-  ;; (use-package py-autopep8
-  ;; :ensure t)
-  ;; (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+  (use-package py-autopep8
+  :ensure t)
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 
-  ;; (add-to-list 'company-backends 'company-jedi)
-  ;; (add-hook 'python-mode-hook 'jedi:setup)
-  ;; (setq jedi:complete-on-dot t)
+  (add-to-list 'company-backends 'company-jedi)
+  (add-hook 'python-mode-hook 'jedi:setup)
+  (setq jedi:complete-on-dot t)
 
-  ;; (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
 #+END_SRC
 
 ** PHP
