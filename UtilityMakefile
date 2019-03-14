@@ -58,3 +58,6 @@ pomo-pause:
 
 pomo-unpause:
 	pomo.sh pause;
+
+weather:
+	curl "wttr.in/?format=4";
