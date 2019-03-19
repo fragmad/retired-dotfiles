@@ -103,7 +103,7 @@ alias whitenoise="play -t sl -r48000 -c2 - synth -1 whitenoise tremolo .1 40 <  
 
 
 EDITOR="emacsclient --tty"
-export GOPATH="$HOME/code/go"
+export GOPATH="$HOME/go"
 source ~/.local_config
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
