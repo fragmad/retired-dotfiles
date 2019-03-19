@@ -40,6 +40,12 @@
 #+END_SRC
 * Useful Functions
 
+Better defaults
+
+#+BEGIN_SRC emacs-lisp
+  (require 'better-defaults)
+#+END_SRC
+
 expand-region.el is an incredibly useful package. Let's use it!
 
 #+BEGIN_SRC emacs-lisp
@@ -144,10 +150,9 @@ This is happily taken from Harry Schwartz Emacs configuration file.
 ** Set default font
 
 #+BEGIN_SRC emacs-lisp
-  ;; (setq wme/default-font "Inconsolata")
-  ;; (setq wme/default-font-size 10)
+ (set-frame-font "Inconsolata 14" nil t)
 
-  ;; (add-to-list 'default-frame-alist '(font . wme/default-font))
+  ;; (Add-to-list 'default-frame-alist '(font . wme/default-font))
   ;; (set-face-attribute 'default t :font wme/default-font)
 
   ;; (set-face-attribute 'default nil :font wme/default-font)
@@ -432,7 +437,7 @@ When editing code, use the current window.
 #+BEGIN_SRC emacs-lisp
   (setq org-capture-templates '(("s" "Standup" entry
                                 (file+headline org-standup "The Daily Stand Up")
-                                 "* Standup - %T - %?\n- What Did I Do Yesterday?\n- What Am Doing Today?\n- What Are My Blockers?\n- What Was the Most Interesting Thing I Learned Yesterday?")
+                                 "* Standup - %T - %?\n- What Did I Do Yesterday?\n- What Am Doing Today?\n- What is my Daily Hit?\n- What Are My Blockers?\n- What Was the Most Interesting Thing I Learned Yesterday?")
                                 ("t" "Todo [inbox]" entry
                                  (file+headline org-inbox "Tasks")
                                  "* TODO %i%?")
@@ -640,6 +645,18 @@ hit =C-c s= to quickly open my daily stand up file.
 
 * Language-specific
 
+** Fly check
+
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :init)
+  ;; (setq flycheck-indication-mode nil)
+  ;; (setq flycheck-display-errors-delay nil)
+  ;; (setq flycheck-idle-change-delay 2)
+  ;; (global-flycheck-mode))
+#+END_SRC
+
 ** Web languages
 #+BEGIN_SRC emacs-lisp
 (use-package web-mode
@@ -713,25 +730,20 @@ When opening a Go file,
 #+BEGIN_SRC emacs-lisp
   (hrs/append-to-path "~/.local/bin")
 
-;  (use-package elpy
-;  :ensure t)
+ (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;  (use-package jedi
-;  :ensure t)
+  (use-package elpy
+    :ensure t)
 
-;  (elpy-enable)
+  (elpy-enable)
 
-;  (add-hook 'elpy-mode-hook 'flycheck-mode)
+  (when (require 'flycheck nil t)
+    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+    (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-;  (use-package py-autopep8
-;  :ensure t)
-;  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
-
-;  (add-to-list 'company-backends 'company-jedi)
-;  (add-hook 'python-mode-hook 'jedi:setup)
-;  (setq jedi:complete-on-dot t)
-
-;  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  ;; enable autopep8 formatting on save
+  (require 'py-autopep8)
+  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
 #+END_SRC
 
 ** PHP
