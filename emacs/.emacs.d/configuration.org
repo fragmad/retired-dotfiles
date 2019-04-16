@@ -43,7 +43,7 @@
 Better defaults
 
 #+BEGIN_SRC emacs-lisp
-  (require 'better-defaults)
+;  (require 'better-defaults)
 #+END_SRC
 
 expand-region.el is an incredibly useful package. Let's use it!
@@ -150,7 +150,7 @@ This is happily taken from Harry Schwartz Emacs configuration file.
 ** Set default font
 
 #+BEGIN_SRC emacs-lisp
- (set-frame-font "Inconsolata 14" nil t)
+ (set-frame-font "Inconsolata 12" nil t)
 
   ;; (Add-to-list 'default-frame-alist '(font . wme/default-font))
   ;; (set-face-attribute 'default t :font wme/default-font)

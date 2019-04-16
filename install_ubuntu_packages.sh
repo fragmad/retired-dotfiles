@@ -50,4 +50,6 @@ pip install jedi \
     flake8 \
     ipython \
     importmagic \
-    yapf 
+    yapf
+
+echo "Visit https://github.com/acrisci/playerctl/releases and install."
