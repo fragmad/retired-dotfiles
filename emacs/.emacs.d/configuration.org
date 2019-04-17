@@ -78,7 +78,7 @@ This is happily taken from Harry Schwartz Emacs configuration file.
 * Theme
 
 #+BEGIN_SRC emacs-lisp
-(setq my-theme 'badwolf)
+(setq my-theme 'dracula)
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
@@ -150,7 +150,7 @@ This is happily taken from Harry Schwartz Emacs configuration file.
 ** Set default font
 
 #+BEGIN_SRC emacs-lisp
- (set-frame-font "Inconsolata 14" nil t)
+ (set-frame-font "Inconsolata 12" nil t)
 
   ;; (Add-to-list 'default-frame-alist '(font . wme/default-font))
   ;; (set-face-attribute 'default t :font wme/default-font)
@@ -329,17 +329,18 @@ This is irritating in many files as tailing whitespace is sometimes useful.
 ** Evil Leader keybindings
 
  #+BEGIN_SRC emacs-lisp
- (evil-leader/set-leader "<SPC>")
- (evil-leader/set-key
-   "a" 'ace-jump-mode
-   "f" 'helm-projectile-find-file
-   "F" 'helm-projectile-ag
-   "q" 'evil-quit
-   "w" 'save-buffer
-   "t" 'neotree-toggle
-   "e" 'emojify-insert-emoji
-   "r" 'elfeed
-   "g" 'magit)
+   (evil-leader/set-leader "<SPC>")
+   (evil-leader/set-key
+     "a" 'ace-jump-mode
+     "f" 'helm-projectile-find-file
+     "F" 'helm-projectile-ag
+     "q" 'evil-quit
+     "w" 'save-buffer
+     "t" 'neotree-toggle
+     "e" 'emojify-insert-emoji
+     "r" 'elfeed
+     "g" 'magit
+     "p" 'helm-projectile-switch-project)
  #+END_SRC
 
 ** Evil Leader org keybindings
@@ -577,13 +578,6 @@ hit =C-c s= to quickly open my daily stand up file.
 (use-package helm
   :ensure t
   :config (helm-mode t))
-(use-package projectile
-  :ensure projectile
-  :config
-  (projectile-global-mode t)
-  (setq projectile-enable-caching t))
-(use-package helm-projectile
-  :ensure t)
 (use-package helm-ag
   :ensure t)
 
@@ -599,6 +593,20 @@ hit =C-c s= to quickly open my daily stand up file.
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "C-x b") 'helm-mini)
 (global-set-key (kbd "M-x") 'helm-M-x)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(use-package projectile
+  :bind
+  ("C-c v" . 'projectile-ag)
+
+  :config
+  (define-key evil-normal-state-map (kbd "C-p") 'projectile-find-file)
+  (evil-define-key 'motion ag-mode-map (kbd "C-p") 'projectile-find-file)
+
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-switch-project-action 'projectile-dired)
+  (setq projectile-require-project-root nil))
 #+END_SRC
 
 * Auto-complete
@@ -784,6 +792,19 @@ When opening a Go file,
             (define-key term-raw-map (kbd "M-o") 'other-window)
             (setq yas-dont-activate t)))
 
+(defun hrs/term-paste (&optional string)
+  (interactive)
+  (process-send-string
+   (get-buffer-process (current-buffer))
+   (if string string (current-kill 0))))
+
+(add-hook 'term-mode-hook
+          (lambda ()
+            (goto-address-mode)
+            (define-key term-raw-map (kbd "C-y") 'hrs/term-paste)
+            (define-key term-raw-map (kbd "<mouse-2>") 'hrs/term-paste)
+            (define-key term-raw-map (kbd "M-o") 'other-window)
+            (setq yas-dont-activate t)))
 #+END_SRC
 * Writing Mode
 
@@ -856,4 +877,18 @@ And let's make it play nicely with =evil-mode=
 The dashboard should load on start.
 #+BEGIN_SRC
 (wme/dashboard)
+#+END_SRC
+* Neotree
+
+#+BEGIN_SRC emacs-lisp
+(use-package neotree :ensure t)
+#+END_SRC
+
+Deal with evil-mode key conflicts.
+
+#+BEGIN_SRC emacs-lisp
+(evil-define-key 'normal neotree-mode-map (kbd "TAB") 'neotree-enter)
+(evil-define-key 'normal neotree-mode-map (kbd "SPC") 'neotree-quick-look)
+(evil-define-key 'normal neotree-mode-map (kbd "q") 'neotree-hide)
+(evil-define-key 'normal neotree-mode-map (kbd "RET") 'neotree-enter)
 #+END_SRC
