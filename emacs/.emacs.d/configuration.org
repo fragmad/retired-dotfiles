@@ -43,7 +43,7 @@
 Better defaults
 
 #+BEGIN_SRC emacs-lisp
-  (require 'better-defaults)
+;  (require 'better-defaults)
 #+END_SRC
 
 expand-region.el is an incredibly useful package. Let's use it!
