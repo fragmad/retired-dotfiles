@@ -61,3 +61,9 @@ pomo-unpause:
 
 weather:
 	curl "wttr.in/?format=4";
+
+hidpi:
+	xrandr --dpi 120;
+
+wallpaper:
+	feh --bg-fill ~/dotfiles/wallpaper/coffee-wallpaper.jpg
