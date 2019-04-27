@@ -10,6 +10,7 @@ then
 elif [ "$HOSTNAME" = "nostromo" ] && [ $home_monitor -eq 1 ]
 then
     exec ~/.screenlayout/home.sh
+    exec xrandr --dpi 120
 else
     exec ~/.screenlayout/laptop_screen.sh
 fi

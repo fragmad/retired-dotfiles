@@ -11,11 +11,6 @@ set $text-color          #f3f4f5
 set $inactive-text-color #676E7D
 set $urgent-bg-color     #E53935
 
-set $bg-color 	         #FFF
-set $inactive-bg-color   #FFF
-set $text-color          #F00
-set $inactive-text-color #0F0
-set $urgent-bg-color     #FFF
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
@@ -151,7 +146,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? ' -b 'Yes, exit i3' 'i3-msg exit'"
 
 #lock the screen
-bindsym $mod+l exec i3lock -c "$bg-color"
+bindsym $mod+l exec i3lock -c "#2f343f"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
