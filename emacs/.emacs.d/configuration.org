@@ -18,8 +18,6 @@
 #+BEGIN_SRC emacs-lisp
   (load "package")
   (add-to-list 'package-archives
-               '("marmalade" . "http://marmalade-repo.org/packages/") t)
-  (add-to-list 'package-archives
                 '("melpa-stable" . "https://stable.melpa.org/packages/") t)
   ;;(add-to-list 'package-archives
   ;;             '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -740,13 +738,13 @@ When opening a Go file,
 
  (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-  (use-package elpy
-    :ensure t)
-
-  (elpy-enable)
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable))
 
   (when (require 'flycheck nil t)
-    (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
     (add-hook 'elpy-mode-hook 'flycheck-mode))
 
   ;; enable autopep8 formatting on save
@@ -826,40 +824,6 @@ These settings mimic iA Writer and we found in this blog post: https://azer.bike
   (setq global-hl-line-mode nil))
 #+END_SRC
 
-* RSS Feeds
-
-I'm trying out elfeed, so let's add some feeds.
-
-#+BEGIN_SRC emacs-lisp
-;;  (use-package elfeed :ensure t)
-  ;; (use-package elfeed-org :ensure t)
-
-#+END_SRC
-
-Just some basic feeds for me to start following.
-#+BEGIN_SRC emacs-lisp
-(setq elfeed-feeds
-  '("http://will-ellwood.com/index.xml"
-    "https://jvns.ca/atom.xml"
-    "https://harryrschwartz.com/atom.xml"))
-#+END_SRC
-
-And let's make it play nicely with =evil-mode=
-
-#+BEGIN_SRC emacs-lisp
-;;(add-to-list 'evil-emacs-state-modes 'elfeed-search-mode)
-;;(add-to-list 'evil-emacs-state-modes 'elfeed-show-mode)
-
-;;(evil-define-key* 'motion elfeed-search-mode-map
-;                  "gb" #'elfeed-search-browse-url
-;                  "gr" #'elfeed-search-update--force
-;                  "gR" #'elfeed-search-fetch)
-;
-;(evil-define-key* 'motion elfeed-show-mode-map
-;                  "gb" #'elfeed-show-visit
-;                  "gj" #'elfeed-show-next
-;                  "gk" #'elfeed-show-prev)
-#+END_SRC
 * Dashboard
 
 #+BEGIN_SRC emacs-lisp
