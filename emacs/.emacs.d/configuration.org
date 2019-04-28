@@ -150,7 +150,7 @@ This is happily taken from Harry Schwartz Emacs configuration file.
 ** Set default font
 
 #+BEGIN_SRC emacs-lisp
- (set-frame-font "Inconsolata 12" nil t)
+ (set-frame-font "Inconsolata 13" nil t)
 
   ;; (Add-to-list 'default-frame-alist '(font . wme/default-font))
   ;; (set-face-attribute 'default t :font wme/default-font)

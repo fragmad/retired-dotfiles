@@ -18,6 +18,8 @@ require("awful.hotkeys_popup.keys")
 local debian = require("debian.menu")
 local has_fdo, freedesktop = pcall(require, "freedesktop")
 
+local lain = require("lain")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
@@ -68,6 +70,7 @@ modkey = "Mod4"
 awful.layout.layouts = {
    awful.layout.suit.tile,
    awful.layout.suit.tile.bottom,
+   lain.layout.centerwork
     -- awful.layout.suit.floating,
     -- awful.layout.suit.max,
     -- awful.layout.suit.floating,

@@ -3,6 +3,7 @@
 sudo apt install \
      aptitude \
      arandr \
+     arc-theme \
      blueman \
      build-essential \
      curl \
@@ -45,11 +46,15 @@ sudo apt install \
      # nm-applet \
      # volumeicon \
 
-pip install jedi \
+pip install --user jedi \
     autopep8 \
     flake8 \
     ipython \
     importmagic \
     yapf
+
+
+sudo add-apt-repository -u ppa:snwh/ppa;
+sudo apt-get install moka-icon-theme faba-icon-theme faba-mono-icons;
 
 echo "Visit https://github.com/acrisci/playerctl/releases and install."
