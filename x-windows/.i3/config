@@ -239,6 +239,8 @@ exec --no-startup-id dunst -config ~/dunstrc
 
 exec --no-startup-id emacs --daemon
 
+exec --no-startup-id gnome-keyring-daemon
+
 # Start applications on the correct workspaces
 
 exec --no-startup-id i3-msg 'workspace 1: emacs; exec emacs'
