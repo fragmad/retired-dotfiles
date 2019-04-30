@@ -67,3 +67,6 @@ hidpi:
 
 wallpaper:
 	feh --bg-fill ~/dotfiles/wallpaper/coffee-wallpaper.jpg
+
+shrug:
+	echo "¯\_(ツ)_/¯"
