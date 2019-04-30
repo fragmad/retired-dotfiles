@@ -18,7 +18,7 @@
 #+BEGIN_SRC emacs-lisp
   (load "package")
   (add-to-list 'package-archives
-                '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+                '("melpa" . "https://melpa.org/packages/") t)
   ;;(add-to-list 'package-archives
   ;;             '("melpa" . "http://melpa.milkbox.net/packages/") t)
   (add-to-list 'package-archives
@@ -734,22 +734,39 @@ When opening a Go file,
 ** Python
 
 #+BEGIN_SRC emacs-lisp
-  (hrs/append-to-path "~/.local/bin")
+      (hrs/append-to-path "~/.local/bin")
 
- (add-hook 'before-save-hook 'delete-trailing-whitespace)
+     (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(use-package elpy
-  :ensure t
-  :defer t
-  :init
-  (advice-add 'python-mode :before 'elpy-enable))
+    ;; (use-package elpy
+    ;;   :ensure t
+    ;;   :defer t
+    ;;   :init
+    ;;   (advice-add 'python-mode :before 'elpy-enable))
 
-  (when (require 'flycheck nil t)
-    (add-hook 'elpy-mode-hook 'flycheck-mode))
+    ;;   (when (require 'flycheck nil t)
+    ;;     (add-hook 'elpy-mode-hook 'flycheck-mode))
 
-  ;; enable autopep8 formatting on save
-  (require 'py-autopep8)
-  (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+      ;; enable autopep8 formatting on save
+      (require 'py-autopep8)
+    (add-hook 'elpy-mode-hook 'py-autopep8-enable-on-save)
+
+    (use-package lsp-python-ms
+      :demand t
+      :ensure t
+      :hook (python-mode . lsp)
+      :config
+
+      ;; for dev build of language server
+      (setq lsp-python-ms-dir
+            (expand-file-name "~/bin/python-language-server/output/bin/Release/"))
+      ;; for executable of language server, if it's not symlinked on your PATH
+  ;;    (setq lsp-python-ms-executable  "~/bin/python-language-server/output/bin/Release/linux-x64/publish/Microsoft.Python.LanguageServer")
+      (setq lsp-python-ms-executable  "~/bin/Microsoft.Python.LanguageServer"))
+
+
+
+
 #+END_SRC
 
 ** PHP
