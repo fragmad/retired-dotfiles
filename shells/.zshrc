@@ -94,7 +94,11 @@ export VISUAL="emacsclient -c -a emacs"         # $VISUAL opens in GUI with non-
 alias emax="emacsclient -t"                      # used to be "emacs -nw"
 
 
-export PATH=$PATH:/usr/local/go/bin
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$GOPATH/bin
+export NOPE="NOPE?"
 
 alias playsid="find ~/Music/C64Music -name *.sid| sort -R| head -n1| xargs sidplay2"
 alias pinknoise="play -t sl -r48000 -c2 - synth -1 pinknoise tremolo .1 40 <  /dev/zero"
@@ -103,7 +107,6 @@ alias whitenoise="play -t sl -r48000 -c2 - synth -1 whitenoise tremolo .1 40 <  
 
 
 EDITOR="emacsclient --tty"
-export GOPATH="$HOME/go"
 source ~/.local_config
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
