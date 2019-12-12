@@ -50,7 +50,7 @@ ZSH_THEME="gallifrey"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git poetry)
 
 # User configuration
 
@@ -128,3 +128,8 @@ function mess() {
 }
 
 export PATH=$PATH:$HOME/.local/bin
+
+export WORKON_HOME="$HOME/.local/share/virtualenvs/"
+
+export PATH="$HOME/.poetry/bin:$PATH"
+
