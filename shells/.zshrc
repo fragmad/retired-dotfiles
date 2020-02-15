@@ -133,3 +133,8 @@ export WORKON_HOME="$HOME/.local/share/virtualenvs/"
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
+export PATH="/home/well/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+source $HOME/.cargo/env
+
