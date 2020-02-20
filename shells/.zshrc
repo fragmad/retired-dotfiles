@@ -50,7 +50,7 @@ ZSH_THEME="gallifrey"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git poetry)
 
 # User configuration
 
@@ -139,7 +139,7 @@ export PATH=$PATH:$HOME/.local/bin
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+export WORKON_HOME="$HOME/.local/share/virtualenvs/"
+export PATH="$HOME/.poetry/bin:$PATH"
+source $HOME/.cargo/env
 
-export PATH="/home/wme/.pyenv/bin:$PATH"                                        
-eval "$(pyenv init -)"                                                          
-eval "$(pyenv virtualenv-init -)" 
