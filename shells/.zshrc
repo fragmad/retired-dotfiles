@@ -108,6 +108,10 @@ alias whitenoise="play -t sl -r48000 -c2 - synth -1 whitenoise tremolo .1 40 <  
 
 EDITOR="emacsclient --tty"
 source ~/.local_config
+
+export GOPATH="$HOME/go"
+export PATH=$PATH:$GOPATH/bin
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -129,3 +133,13 @@ function mess() {
 
     cd $MESSDIR
 }
+
+export PATH=$PATH:$HOME/.local/bin
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+export PATH="/home/wme/.pyenv/bin:$PATH"                                        
+eval "$(pyenv init -)"                                                          
+eval "$(pyenv virtualenv-init -)" 

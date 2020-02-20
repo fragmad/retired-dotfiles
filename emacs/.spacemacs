@@ -31,33 +31,39 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     ruby
-     yaml
-     html
+     rust
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
+     (python :variables python-test-runner 'pytest)
      ;; ----------------------------------------------------------------
-     helm
+     ;; version-control
+     ansible
      auto-completion
-     ;; better-defaults
+     clojure
      django
+     elfeed
      emacs-lisp
      git
      go
+     helm
+     html
+     javascript
      markdown
-     (org :variables
-          org-enable-reveal-js-support t)
-     python
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
+     (org org-enable-reveal-js-support t)
+     php
+     puppet
      ranger
+     ruby
+     salt
      spell-checking
+     sql
      syntax-checking
-     ;; version-control
+     themes-megapack
      vagrant
+     yaml
+     yaml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -135,8 +141,11 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(solarized-light
+                         solarized-dark
+                         spacemacs-dark
                          spacemacs-light)
+
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -147,7 +156,7 @@ values."
    ;; integer to indicate pixel witdth.
 
    dotspacemacs-default-font '("Inconsolata"
-                               :size 12.0 
+                               :size 12.0
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -325,6 +334,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   )
 
+
 (setq org-directory "~/ownCloud/org")
 
 (defun org-file-path (filename)
@@ -346,17 +356,25 @@ you should place your code here."
 (setq org-tickler (org-file-path "tickler.org"))
 (setq org-someday (org-file-path "someday.org"))
 (setq org-standup (org-file-path "dailystandup.org"))
+(setq org-morning (org-file-path "mornings.org"))
 
 
-(setq org-capture-templates '(("s" "Standup" entry
+(setq org-capture-templates '(("m" "Morning Routine" entry
+                               (file+headline org-morning "Morning Routine Check lists")
+                              "** Morning Check list - %T -\n*** TODO Eat Breakfast \n*** TODO Brew Coffee/Tea\n*** TODO Says Hello to Boss and Colleagues\n*** TODO Look at Jira/Kanban\n*** TODO Fill out dailystandup.org\n*** TODO Login to access and authenticate\n*** TODO Check Email and Calendar\n")
+                              ("s" "Stand-up" entry
                                (file+headline org-standup "The Daily Stand Up")
-                               "* Standup - %T - %?\n- What Did I Do Yesterday?\n- What Am Doing Today?\n- What is my Daily Hit?\n- What Are My Blockers?\n- What Was the Most Interesting Thing I Learned Yesterday?")
+                               "* Stand-up - %T - %?\n- What Did I Do Yesterday?\n- What Am Doing Today?\n- What is my Daily Hit?\n- What Are My Blockers?\n")
                               ("t" "Todo [inbox]" entry
                                (file+headline org-inbox "Tasks")
                                "* TODO %i%?")
                               ("T" "Tickler" entry
                                (file+headline org-tickler "Tickler")
-                               "* TODO %i%? \n SCHEDULED: %T")))
+                               "* TODO %i%? \n SCHEDULED: %T")
+                              ("f" "Subscribe to an RSS feed"
+                               plain
+                               (file "~/ownCloud/org/rss-feeds.org")
+                               "*** [[%^{Feed URL}][%^{Feed name}]]")))
 
 
 (setq org-refile-targets '(("~/ownCloud/org/gtd.org" :maxlevel . 3)
@@ -380,6 +398,15 @@ you should place your code here."
   (wme/open-standup-file))
 
 (global-set-key (kbd "C-c d") 'wme/dashboard)
+
+(setq org-reveal-root "/home/well/assets/reveal.js/")
+
+(setq python-shell-interpreter "python3")
+
+;; (elfeed-org)
+;; (setq rmh-elfeed-org-files (list "~/ownCloud/org/rss-feeds.org"))
+;; (elfeed :variables rmh-elfeed-org-files (list "~/ownCloud/org/rss-feeds.org"))
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -387,9 +414,13 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("d91ef4e714f05fff2070da7ca452980999f5361209e679ee988e3c432df24347" "fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" "5a45c8bf60607dfa077b3e23edfb8df0f37c4759356682adf7ab762ba6b10600" "6515fcc302292f29a94f6ac0c5795c57a396127d5ea31f37fc5f9f0308bbe19f" default)))
+ '(evil-want-Y-yank-to-eol nil)
  '(package-selected-packages
    (quote
-    (rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby ox-reveal vagrant-tramp vagrant yaml-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data yapfify smeargle ranger pyvenv pytest pyenv-mode py-isort pony-mode pip-requirements orgit org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup live-py-mode hy-mode dash-functional htmlize helm-pydoc helm-gitignore helm-company helm-c-yasnippet go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit transient git-commit with-editor cython-mode company-statistics company-go go-mode company-anaconda company auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
+    (elfeed-web elfeed-org elfeed-goodies ace-jump-mode noflet elfeed toml-mode racer flycheck-rust cargo rust-mode zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes afternoon-theme ox-reveal phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data writeroom-mode nofrils-acme-theme web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern coffee-mode sql-indent clojure-snippets clj-refactor inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman seq queue parseedn clojure-mode parseclj a salt-mode mmm-jinja2 puppet-mode jinja2-mode company-ansible ansible-doc ansible yaml-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby vagrant-tramp vagrant yapfify smeargle ranger pyvenv pytest pyenv-mode py-isort pony-mode pip-requirements orgit org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download mmm-mode markdown-toc markdown-mode magit-gitflow magit-popup live-py-mode hy-mode dash-functional htmlize helm-pydoc helm-gitignore helm-company helm-c-yasnippet go-guru go-eldoc gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit transient git-commit with-editor cython-mode company-statistics company-go go-mode company-anaconda company auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra lv hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile projectile pkg-info epl helm-mode-manager helm-make helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
