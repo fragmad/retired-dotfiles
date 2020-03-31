@@ -135,6 +135,7 @@ function mess() {
 }
 
 export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/bin/
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"

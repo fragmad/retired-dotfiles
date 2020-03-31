@@ -377,6 +377,10 @@ you should place your code here."
                            ("~/ownCloud/org/someday.org" :level . 1)
                            ("~/ownCloud/org/tickler.org" :maxlevel . 2)))
 
+(global-set-key (kbd "C-c a") 'org-agenda)
+(setq org-agenda-files '("~/ownCloud/org/index.org" "~/ownCloud/org/zet/"))
+
+(add-hook 'org-mode-hook 'turn-on-visual-line-mode)
 
 (defun wme/open-standup-file ()
   "Open my stand up file."

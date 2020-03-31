@@ -173,6 +173,21 @@ mode "resize" {
 }
 
 bindsym $mod+r mode "resize"
+# skype, steam, wine: float Gimp
+
+# for_window [class="Firefox"] floating enable
+for_window [class="Gimp"] floating enable
+# for_window [class="google-chrome"] floating enable
+# for_window [class="Google-chrome"] floating enable
+# for_window [class="Slack"] floating enable
+for_window [class="Steam"] floating enable
+for_window [class="Virt-manager"] floating enable
+for_window [class="Virt-viewer"] floating enable
+for_window [class="VirtualBox"] floating enable
+for_window [class="vlc"] floating enable
+for_window [class="Wine"] floating enable
+for_window [class="Wireshark"] floating enable
+for_window [class="Zoom"] floating enable
 
 bindsym $mod-k exec "/home/well/dotfiles/bin/set_screens.sh"
 
@@ -192,15 +207,13 @@ bar {
 # workspace 4 output DP1-2
 # workspace 9 output DP1-2
 
-exec_always xmodmap ~/.xmodmap
-
 exec setxkbmap -option ctrl:nocaps
 
 # exec --no-startup-id xbindkeys &
 
-# bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
-# bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
-# bindsym XF86AudioMute exec amixer -q set Master toggle
+ bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
+ bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
+ bindsym XF86AudioMute exec amixer -q set Master toggle
 
 # bindsym $mod+period exec amixer -q set Master 2dB+ unmute
 # bindsym $mod+comma exec amixer -q set Master 2dB- unmute
@@ -208,8 +221,8 @@ exec setxkbmap -option ctrl:nocaps
 bindsym $mod+p exec playerctl play-pause
 bindsym $mod+Shift+period exec playerctl next
 bindsym $mod+Shift+comma exec playerctl previous
-# bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-# bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+ bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 exec --no-startup-id xbindkeys &
 
@@ -225,7 +238,7 @@ exec --no-startup-id nm-applet &
 exec --no-startup-id blueman-applet &
 exec --no-startup-id dropbox start
 exec unclutter -idle 1 -noevents &
-exec --no-startup-id compton -f
+# exec --no-startup-id compton -f
 
 # Cycle through active workspaces
 bindsym $mod+Tab workspace next
@@ -237,10 +250,10 @@ exec setxkbmap -option ctrl:nocaps
 #exec killall -q <notification daemon>
 exec --no-startup-id dunst -config ~/dunstrc
 
-exec --no-startup-id emacs --daemon
+# exec --no-startup-id emacs --daemon
 
 #exec --no-startup-id gnome-keyring-daemon -s
-#exec_always --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
+exec_always --no-startup-id /usr/bin/gnome-keyring-daemon --start --components=secrets
 # Start applications on the correct workspaces
 
 exec --no-startup-id i3-msg 'workspace 1: emacs; exec emacs'
