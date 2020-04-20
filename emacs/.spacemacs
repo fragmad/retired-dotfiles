@@ -50,6 +50,7 @@ values."
      html
      javascript
      markdown
+     olivetti
      php
      ranger
      ruby
