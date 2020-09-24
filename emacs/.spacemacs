@@ -328,6 +328,10 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+
+  (spacemacs|disable-company org-mode)
+
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -379,7 +383,7 @@ you should place your code here."
                                "* TODO %i%? \n SCHEDULED: %T")
                               ("w" "Do Work" entry
                                (file+headline org-time-tracking "Time Tracking")
-                               "* At %T I am %^{DOING WHAT} for %^{how many minutes} minutes. %i")))
+                               "* At %T I %^{DOING WHAT} for %^{how many minutes} minutes. %i")))
 
 
 (setq org-refile-targets '(("~/ownCloud/org/gtd.org" :maxlevel . 3)
