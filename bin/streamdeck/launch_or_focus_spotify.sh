@@ -1,0 +1,1 @@
+wmctrl -vxa spotify || spotify

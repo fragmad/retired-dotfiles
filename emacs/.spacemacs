@@ -161,7 +161,7 @@ values."
    ;; integer to indicate pixel witdth.
 
    dotspacemacs-default-font '("Inconsolata"
-                                :size 11.0
+                                :size 12.0
                                 :weight normal
                                 :width normal
                                 :powerline-scale 1.1)
