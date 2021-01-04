@@ -160,11 +160,12 @@ values."
    ;; Use a floating point number here to indicate a point size and use an
    ;; integer to indicate pixel witdth.
 
-   dotspacemacs-default-font '("Inconsolata"
-                                :size 12.0
+   dotspacemacs-default-font '("Fira Code"
+                                :size 11.0
                                 :weight normal
                                 :width normal
                                 :powerline-scale 1.1)
+
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -394,6 +395,10 @@ you should place your code here."
 (setq org-agenda-files '("~/ownCloud/org/index.org" "~/ownCloud/org/zet/"))
 
 (add-hook 'org-mode-hook 'turn-on-visual-line-mode)
+
+(add-hook 'org-mode-hook (lambda ()
+                           (setq buffer-face-mode-face '(:family "Fira Code" :size 14))
+                           (buffer-face-mode)))
 
 (defun wme/open-standup-file ()
   "Open my stand up file."
