@@ -142,5 +142,8 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 export WORKON_HOME="$HOME/.local/share/virtualenvs/"
 export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/.emacs.d/bin:$PATH"
 source $HOME/.cargo/env
+
+source $HOME/.alliases
 
